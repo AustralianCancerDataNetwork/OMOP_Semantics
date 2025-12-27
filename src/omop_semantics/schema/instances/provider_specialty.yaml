@@ -1,0 +1,105 @@
+id: https://example.org/omop_semantics
+name: provider_specialty
+description: OMOP concepts for semantic role 'provider_specialty'
+CancerConsultTypes_Group:
+  class_uri: ConceptGroup
+  name: CancerConsultTypes
+  role: provider_specialty
+  members:
+    - CancerConsultTypes_medonc
+    - CancerConsultTypes_clinonc
+    - CancerConsultTypes_mdt_discussion
+    - CancerConsultTypes_care_coordination
+  notes: Concept group derived from enum CancerConsultTypes
+CancerConsultTypes_medonc:
+  class_uri: OmopConcept
+  concept_id: 4147722
+  label: Medonc
+  role: provider_specialty
+CancerConsultTypes_clinonc:
+  class_uri: OmopConcept
+  concept_id: 4139715
+  label: Clinonc
+  role: provider_specialty
+CancerConsultTypes_mdt_discussion:
+  class_uri: OmopConcept
+  concept_id: 44790273
+  label: Mdt Discussion
+  role: provider_specialty
+CancerConsultTypes_care_coordination:
+  class_uri: OmopConcept
+  concept_id: 4295043
+  label: Care Coordination
+  role: provider_specialty
+ProviderSpecialty_Group:
+  class_uri: ConceptGroup
+  name: ProviderSpecialty
+  role: provider_specialty
+  members:
+    - ProviderSpecialty_radonc
+    - ProviderSpecialty_medonc
+    - ProviderSpecialty_pall_care
+    - ProviderSpecialty_dietetitian
+    - ProviderSpecialty_occupational_therapist
+    - ProviderSpecialty_speech_therapist
+    - ProviderSpecialty_haematologist
+    - ProviderSpecialty_geneticist
+    - ProviderSpecialty_gynaecologist
+    - ProviderSpecialty_radiation_therapist
+    - ProviderSpecialty_medical_doctor
+  notes: Concept group derived from enum ProviderSpecialty
+ProviderSpecialty_radonc:
+  class_uri: OmopConcept
+  concept_id: 35621987
+  label: Radonc
+  role: provider_specialty
+ProviderSpecialty_medonc:
+  class_uri: OmopConcept
+  concept_id: 4151173
+  label: Medonc
+  role: provider_specialty
+ProviderSpecialty_pall_care:
+  class_uri: OmopConcept
+  concept_id: 4202942
+  label: Pall Care
+  role: provider_specialty
+ProviderSpecialty_dietetitian:
+  class_uri: OmopConcept
+  concept_id: 4220638
+  label: Dietetitian
+  role: provider_specialty
+ProviderSpecialty_occupational_therapist:
+  class_uri: OmopConcept
+  concept_id: 4213188
+  label: Occupational Therapist
+  role: provider_specialty
+ProviderSpecialty_speech_therapist:
+  class_uri: OmopConcept
+  concept_id: 4010130
+  label: Speech Therapist
+  role: provider_specialty
+ProviderSpecialty_haematologist:
+  class_uri: OmopConcept
+  concept_id: 4221826
+  label: Haematologist
+  role: provider_specialty
+ProviderSpecialty_geneticist:
+  class_uri: OmopConcept
+  concept_id: 4009808
+  label: Geneticist
+  role: provider_specialty
+ProviderSpecialty_gynaecologist:
+  class_uri: OmopConcept
+  concept_id: 17036
+  label: Gynaecologist
+  role: provider_specialty
+ProviderSpecialty_radiation_therapist:
+  class_uri: OmopConcept
+  concept_id: 4143746
+  label: Radiation Therapist
+  role: provider_specialty
+ProviderSpecialty_medical_doctor:
+  class_uri: OmopConcept
+  concept_id: 4010577
+  label: Medical Doctor
+  role: provider_specialty

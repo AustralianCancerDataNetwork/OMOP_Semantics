@@ -1,0 +1,81 @@
+id: https://example.org/omop_semantics
+name: treatment_episode
+description: OMOP concepts for semantic role 'treatment_episode'
+DiseaseEpisodeConcepts_Group:
+  class_uri: ConceptGroup
+  name: DiseaseEpisodeConcepts
+  role: treatment_episode
+  members:
+    - DiseaseEpisodeConcepts_episode_of_care
+    - DiseaseEpisodeConcepts_confined
+    - DiseaseEpisodeConcepts_invasive
+    - DiseaseEpisodeConcepts_metastatic
+    - DiseaseEpisodeConcepts_stable_disease
+    - DiseaseEpisodeConcepts_disease_progression
+    - DiseaseEpisodeConcepts_partial_response
+  notes: Concept group derived from enum DiseaseEpisodeConcepts
+DiseaseEpisodeConcepts_episode_of_care:
+  class_uri: OmopConcept
+  concept_id: 32533
+  label: Episode Of Care
+  role: treatment_episode
+DiseaseEpisodeConcepts_confined:
+  class_uri: OmopConcept
+  concept_id: 32528
+  label: Confined
+  role: treatment_episode
+DiseaseEpisodeConcepts_invasive:
+  class_uri: OmopConcept
+  concept_id: 32677
+  label: Invasive
+  role: treatment_episode
+DiseaseEpisodeConcepts_metastatic:
+  class_uri: OmopConcept
+  concept_id: 32944
+  label: Metastatic
+  role: treatment_episode
+DiseaseEpisodeConcepts_stable_disease:
+  class_uri: OmopConcept
+  concept_id: 32948
+  label: Stable Disease
+  role: treatment_episode
+DiseaseEpisodeConcepts_disease_progression:
+  class_uri: OmopConcept
+  concept_id: 32949
+  label: Disease Progression
+  role: treatment_episode
+DiseaseEpisodeConcepts_partial_response:
+  class_uri: OmopConcept
+  concept_id: 32947
+  label: Partial Response
+  role: treatment_episode
+TreatmentEpisode_Group:
+  class_uri: ConceptGroup
+  name: TreatmentEpisode
+  role: treatment_episode
+  members:
+    - TreatmentEpisode_treatment_regimen
+    - TreatmentEpisode_treatment_cycle
+    - TreatmentEpisode_cancer_surgery
+    - TreatmentEpisode_radiotherapy
+  notes: Concept group derived from enum TreatmentEpisode
+TreatmentEpisode_treatment_regimen:
+  class_uri: OmopConcept
+  concept_id: 32531
+  label: Treatment Regimen
+  role: treatment_episode
+TreatmentEpisode_treatment_cycle:
+  class_uri: OmopConcept
+  concept_id: 32532
+  label: Treatment Cycle
+  role: treatment_episode
+TreatmentEpisode_cancer_surgery:
+  class_uri: OmopConcept
+  concept_id: 32939
+  label: Cancer Surgery
+  role: treatment_episode
+TreatmentEpisode_radiotherapy:
+  class_uri: OmopConcept
+  concept_id: 32940
+  label: Radiotherapy
+  role: treatment_episode

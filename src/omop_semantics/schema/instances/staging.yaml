@@ -1,0 +1,39 @@
+id: https://example.org/omop_semantics
+name: staging
+description: OMOP concepts for semantic role 'staging'
+GroupStageConcepts_Group:
+  class_uri: ConceptGroup
+  name: GroupStageConcepts
+  role: staging
+  members:
+    - GroupStageConcepts_stage0
+    - GroupStageConcepts_stageI
+    - GroupStageConcepts_stageII
+    - GroupStageConcepts_stageIII
+    - GroupStageConcepts_stageIV
+  notes: Concept group derived from enum GroupStageConcepts
+GroupStageConcepts_stage0:
+  class_uri: OmopConcept
+  concept_id: 1633754
+  label: Stage0
+  role: staging
+GroupStageConcepts_stageI:
+  class_uri: OmopConcept
+  concept_id: 1633306
+  label: Stagei
+  role: staging
+GroupStageConcepts_stageII:
+  class_uri: OmopConcept
+  concept_id: 1634209
+  label: Stageii
+  role: staging
+GroupStageConcepts_stageIII:
+  class_uri: OmopConcept
+  concept_id: 1633650
+  label: Stageiii
+  role: staging
+GroupStageConcepts_stageIV:
+  class_uri: OmopConcept
+  concept_id: 1633308
+  label: Stageiv
+  role: staging

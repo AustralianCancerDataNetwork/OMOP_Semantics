@@ -1,0 +1,183 @@
+id: https://example.org/omop_semantics
+name: measurement
+description: OMOP concepts for semantic role 'measurement'
+CancerObservations_Group:
+  class_uri: ConceptGroup
+  name: CancerObservations
+  role: measurement
+  members:
+    - CancerObservations_smoking_status
+    - CancerObservations_pall_care_referral
+    - CancerObservations_oncology_referral
+    - CancerObservations_medonc
+    - CancerObservations_clinonc
+    - CancerObservations_pet_scan
+  notes: Concept group derived from enum CancerObservations
+CancerObservations_smoking_status:
+  class_uri: OmopConcept
+  concept_id: 43054909
+  label: Smoking Status
+  role: measurement
+CancerObservations_pall_care_referral:
+  class_uri: OmopConcept
+  concept_id: 4127745
+  label: Pall Care Referral
+  role: measurement
+CancerObservations_oncology_referral:
+  class_uri: OmopConcept
+  concept_id: 4084352
+  label: Oncology Referral
+  role: measurement
+CancerObservations_medonc:
+  class_uri: OmopConcept
+  concept_id: 4147722
+  label: Medonc
+  role: measurement
+CancerObservations_clinonc:
+  class_uri: OmopConcept
+  concept_id: 4139715
+  label: Clinonc
+  role: measurement
+CancerObservations_pet_scan:
+  class_uri: OmopConcept
+  concept_id: 4230986
+  label: Pet Scan
+  role: measurement
+EAVMeasurements_Group:
+  class_uri: ConceptGroup
+  name: EAVMeasurements
+  role: measurement
+  members:
+    - EAVMeasurements_weight
+    - EAVMeasurements_ecog
+    - EAVMeasurements_creatinine_clearance
+    - EAVMeasurements_egfr
+    - EAVMeasurements_weight_change
+    - EAVMeasurements_body_height
+    - EAVMeasurements_bsa
+    - EAVMeasurements_distress_thermometer
+    - EAVMeasurements_smoking_pyh
+    - EAVMeasurements_fev1
+  notes: Concept group derived from enum EAVMeasurements
+EAVMeasurements_weight:
+  class_uri: OmopConcept
+  concept_id: 4099154
+  label: Weight
+  role: measurement
+EAVMeasurements_ecog:
+  class_uri: OmopConcept
+  concept_id: 36305384
+  label: Ecog
+  role: measurement
+EAVMeasurements_creatinine_clearance:
+  class_uri: OmopConcept
+  concept_id: 4275203
+  label: Creatinine Clearance
+  role: measurement
+EAVMeasurements_egfr:
+  class_uri: OmopConcept
+  concept_id: 37208635
+  label: Egfr
+  role: measurement
+EAVMeasurements_weight_change:
+  class_uri: OmopConcept
+  concept_id: 607590
+  label: Weight Change
+  role: measurement
+EAVMeasurements_body_height:
+  class_uri: OmopConcept
+  concept_id: 4086522
+  label: Body Height
+  role: measurement
+EAVMeasurements_bsa:
+  class_uri: OmopConcept
+  concept_id: 4201235
+  label: Bsa
+  role: measurement
+EAVMeasurements_distress_thermometer:
+  class_uri: OmopConcept
+  concept_id: 601349
+  label: Distress Thermometer
+  role: measurement
+EAVMeasurements_smoking_pyh:
+  class_uri: OmopConcept
+  concept_id: 4151768
+  label: Smoking Pyh
+  role: measurement
+EAVMeasurements_fev1:
+  class_uri: OmopConcept
+  concept_id: 3024653
+  label: Fev1
+  role: measurement
+WeightConcepts_Group:
+  class_uri: ConceptGroup
+  name: WeightConcepts
+  role: measurement
+  members:
+    - WeightConcepts_weight
+    - WeightConcepts_height
+    - WeightConcepts_bsa
+    - WeightConcepts_weight_change
+  notes: Concept group derived from enum WeightConcepts
+WeightConcepts_weight:
+  class_uri: OmopConcept
+  concept_id: 4099154
+  label: Weight
+  role: measurement
+WeightConcepts_height:
+  class_uri: OmopConcept
+  concept_id: 607590
+  label: Height
+  role: measurement
+WeightConcepts_bsa:
+  class_uri: OmopConcept
+  concept_id: 4201235
+  label: Bsa
+  role: measurement
+WeightConcepts_weight_change:
+  class_uri: OmopConcept
+  concept_id: 4086522
+  label: Weight Change
+  role: measurement
+WeightUnits_Group:
+  class_uri: ConceptGroup
+  name: WeightUnits
+  role: measurement
+  members:
+    - WeightUnits_lb
+    - WeightUnits_pct
+    - WeightUnits_kg
+    - WeightUnits_cm
+    - WeightUnits_inch
+    - WeightUnits_m2
+  notes: Concept group derived from enum WeightUnits
+WeightUnits_lb:
+  class_uri: OmopConcept
+  concept_id: 8739
+  label: Lb
+  role: measurement
+WeightUnits_pct:
+  class_uri: OmopConcept
+  concept_id: 4041099
+  label: Pct
+  role: measurement
+WeightUnits_kg:
+  class_uri: OmopConcept
+  concept_id: 9529
+  label: Kg
+  role: measurement
+WeightUnits_cm:
+  class_uri: OmopConcept
+  concept_id: 8582
+  label: Cm
+  role: measurement
+WeightUnits_inch:
+  class_uri: OmopConcept
+  concept_id: 9327
+  label: Inch
+  role: measurement
+WeightUnits_m2:
+  class_uri: OmopConcept
+  concept_id: 8617
+  label: M2
+  role: measurement

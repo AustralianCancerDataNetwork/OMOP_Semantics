@@ -1,0 +1,33 @@
+id: https://example.org/omop_semantics
+name: treatment_intent
+description: OMOP concepts for semantic role 'treatment_intent'
+TreatmentIntent_Group:
+  class_uri: ConceptGroup
+  name: TreatmentIntent
+  role: treatment_intent
+  members:
+    - TreatmentIntent_neoadjuvant
+    - TreatmentIntent_adjuvant
+    - TreatmentIntent_curative
+    - TreatmentIntent_palliative
+  notes: Concept group derived from enum TreatmentIntent
+TreatmentIntent_neoadjuvant:
+  class_uri: OmopConcept
+  concept_id: 4161587
+  label: Neoadjuvant
+  role: treatment_intent
+TreatmentIntent_adjuvant:
+  class_uri: OmopConcept
+  concept_id: 4191637
+  label: Adjuvant
+  role: treatment_intent
+TreatmentIntent_curative:
+  class_uri: OmopConcept
+  concept_id: 4162591
+  label: Curative
+  role: treatment_intent
+TreatmentIntent_palliative:
+  class_uri: OmopConcept
+  concept_id: 4179711
+  label: Palliative
+  role: treatment_intent

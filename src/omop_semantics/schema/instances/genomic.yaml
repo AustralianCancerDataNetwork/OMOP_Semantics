@@ -1,0 +1,63 @@
+id: https://example.org/omop_semantics
+name: genomic
+description: OMOP concepts for semantic role 'genomic'
+GenomicMeasurements_Group:
+  class_uri: ConceptGroup
+  name: GenomicMeasurements
+  role: genomic
+  members:
+    - GenomicMeasurements_alk
+    - GenomicMeasurements_egfr
+    - GenomicMeasurements_ros1
+    - GenomicMeasurements_braf
+    - GenomicMeasurements_ret
+  notes: Concept group derived from enum GenomicMeasurements
+GenomicMeasurements_alk:
+  class_uri: OmopConcept
+  concept_id: 35963763
+  label: Alk
+  role: genomic
+GenomicMeasurements_egfr:
+  class_uri: OmopConcept
+  concept_id: 35962802
+  label: Egfr
+  role: genomic
+GenomicMeasurements_ros1:
+  class_uri: OmopConcept
+  concept_id: 35957723
+  label: Ros1
+  role: genomic
+GenomicMeasurements_braf:
+  class_uri: OmopConcept
+  concept_id: 35948173
+  label: Braf
+  role: genomic
+GenomicMeasurements_ret:
+  class_uri: OmopConcept
+  concept_id: 35952943
+  label: Ret
+  role: genomic
+GenomicValue_Group:
+  class_uri: ConceptGroup
+  name: GenomicValue
+  role: genomic
+  members:
+    - GenomicValue_positive
+    - GenomicValue_negative
+    - GenomicValue_equivocal
+  notes: Concept group derived from enum GenomicValue
+GenomicValue_positive:
+  class_uri: OmopConcept
+  concept_id: 9191
+  label: Positive
+  role: genomic
+GenomicValue_negative:
+  class_uri: OmopConcept
+  concept_id: 9189
+  label: Negative
+  role: genomic
+GenomicValue_equivocal:
+  class_uri: OmopConcept
+  concept_id: 4172976
+  label: Equivocal
+  role: genomic

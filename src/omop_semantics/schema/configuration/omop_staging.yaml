@@ -1,0 +1,56 @@
+id: https://example.org/omop_staging
+name: omop_staging
+title: OMOP Cancer Staging Semantics
+
+imports:
+  - omop_semantic_core.yaml
+
+enums:
+
+  StagingAxis:
+    permissible_values:
+      T:
+      N:
+      M:
+      GROUP:
+
+classes:
+
+  StagingConcept:
+    is_a: OmopConcept
+    description: OMOP concept participating in cancer staging
+    slots:
+      - staging_axis
+
+slots:
+
+  staging_axis:
+    range: StagingAxis
+    required: true
+
+classes:
+
+  TStageConcepts:
+    is_a: ConceptGroup
+    slot_usage:
+      name:
+        value: TStage
+      role:
+        value: staging
+      members:
+        value:
+          - T0
+          - T1
+          - T2
+          - T3
+          - T4
+          - TX
+
+instances:
+
+  T0:
+    class_uri: StagingConcept
+    concept_id: 1634213
+    label: T0
+    role: staging
+    staging_axis: T

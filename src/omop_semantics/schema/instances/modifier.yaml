@@ -1,0 +1,249 @@
+id: https://example.org/omop_semantics
+name: modifier
+description: OMOP concepts for semantic role 'modifier'
+CancerProcedureTypes_Group:
+  class_uri: ConceptGroup
+  name: CancerProcedureTypes
+  role: modifier
+  members:
+    - CancerProcedureTypes_surgical_procedure
+    - CancerProcedureTypes_historical_procedure
+    - CancerProcedureTypes_rt_procedure
+    - CancerProcedureTypes_rn_procedure
+    - CancerProcedureTypes_rt_externalbeam
+    - CancerProcedureTypes_rt_course
+  notes: Concept group derived from enum CancerProcedureTypes
+CancerProcedureTypes_surgical_procedure:
+  class_uri: OmopConcept
+  concept_id: 4301351
+  label: Surgical Procedure
+  role: modifier
+CancerProcedureTypes_historical_procedure:
+  class_uri: OmopConcept
+  concept_id: 1340204
+  label: Historical Procedure
+  role: modifier
+CancerProcedureTypes_rt_procedure:
+  class_uri: OmopConcept
+  concept_id: 1242725
+  label: Rt Procedure
+  role: modifier
+CancerProcedureTypes_rn_procedure:
+  class_uri: OmopConcept
+  concept_id: 4161415
+  label: Rn Procedure
+  role: modifier
+CancerProcedureTypes_rt_externalbeam:
+  class_uri: OmopConcept
+  concept_id: 4141448
+  label: Rt Externalbeam
+  role: modifier
+CancerProcedureTypes_rt_course:
+  class_uri: OmopConcept
+  concept_id: 37163499
+  label: Rt Course
+  role: modifier
+ConditionConcepts_Group:
+  class_uri: ConceptGroup
+  name: ConditionConcepts
+  role: modifier
+  members:
+    - ConditionConcepts_ehr_problem_list
+    - ConditionConcepts_resolved_condition
+    - ConditionConcepts_confirmed_diagnosis
+  notes: Concept group derived from enum ConditionConcepts
+ConditionConcepts_ehr_problem_list:
+  class_uri: OmopConcept
+  concept_id: 32840
+  label: Ehr Problem List
+  role: modifier
+ConditionConcepts_resolved_condition:
+  class_uri: OmopConcept
+  concept_id: 32906
+  label: Resolved Condition
+  role: modifier
+ConditionConcepts_confirmed_diagnosis:
+  class_uri: OmopConcept
+  concept_id: 32893
+  label: Confirmed Diagnosis
+  role: modifier
+ConditionModifiers_Group:
+  class_uri: ConceptGroup
+  name: ConditionModifiers
+  role: modifier
+  members:
+    - ConditionModifiers_init_diag
+    - ConditionModifiers_tnm
+    - ConditionModifiers_mets
+  notes: Concept group derived from enum ConditionModifiers
+ConditionModifiers_init_diag:
+  class_uri: OmopConcept
+  concept_id: 734306
+  label: Init Diag
+  role: modifier
+ConditionModifiers_tnm:
+  class_uri: OmopConcept
+  concept_id: 734320
+  label: Tnm
+  role: modifier
+ConditionModifiers_mets:
+  class_uri: OmopConcept
+  concept_id: 36769180
+  label: Mets
+  role: modifier
+DrugExposureConcepts_Group:
+  class_uri: ConceptGroup
+  name: DrugExposureConcepts
+  role: modifier
+  members:
+    - DrugExposureConcepts_drug_dose
+    - DrugExposureConcepts_ehr_drug_admin
+    - DrugExposureConcepts_placebo
+  notes: Concept group derived from enum DrugExposureConcepts
+DrugExposureConcepts_drug_dose:
+  class_uri: OmopConcept
+  concept_id: 4162374
+  label: Drug Dose
+  role: modifier
+DrugExposureConcepts_ehr_drug_admin:
+  class_uri: OmopConcept
+  concept_id: 32818
+  label: Ehr Drug Admin
+  role: modifier
+DrugExposureConcepts_placebo:
+  class_uri: OmopConcept
+  concept_id: 1379408
+  label: Placebo
+  role: modifier
+ModifierConcepts_Group:
+  class_uri: ConceptGroup
+  name: ModifierConcepts
+  role: modifier
+  members:
+    - ModifierConcepts_grade
+    - ModifierConcepts_laterality
+    - ModifierConcepts_derived_value
+    - ModifierConcepts_tumor_size
+    - ModifierConcepts_primary_tumor
+  notes: Concept group derived from enum ModifierConcepts
+ModifierConcepts_grade:
+  class_uri: OmopConcept
+  concept_id: 35918328
+  label: Grade
+  role: modifier
+ModifierConcepts_laterality:
+  class_uri: OmopConcept
+  concept_id: 35918306
+  label: Laterality
+  role: modifier
+ModifierConcepts_derived_value:
+  class_uri: OmopConcept
+  concept_id: 45754907
+  label: Derived Value
+  role: modifier
+ModifierConcepts_tumor_size:
+  class_uri: OmopConcept
+  concept_id: 4139794
+  label: Tumor Size
+  role: modifier
+ModifierConcepts_primary_tumor:
+  class_uri: OmopConcept
+  concept_id: 36768229
+  label: Primary Tumor
+  role: modifier
+ModifierFields_Group:
+  class_uri: ConceptGroup
+  name: ModifierFields
+  role: modifier
+  members:
+    - ModifierFields_condition_occurrence_id
+    - ModifierFields_drug_exposure_id
+    - ModifierFields_procedure_occurrence_id
+    - ModifierFields_episode_id
+  notes: Concept group derived from enum ModifierFields
+ModifierFields_condition_occurrence_id:
+  class_uri: OmopConcept
+  concept_id: 1147127
+  label: Condition Occurrence Id
+  role: modifier
+ModifierFields_drug_exposure_id:
+  class_uri: OmopConcept
+  concept_id: 1147707
+  label: Drug Exposure Id
+  role: modifier
+ModifierFields_procedure_occurrence_id:
+  class_uri: OmopConcept
+  concept_id: 1147082
+  label: Procedure Occurrence Id
+  role: modifier
+ModifierFields_episode_id:
+  class_uri: OmopConcept
+  concept_id: 756290
+  label: Episode Id
+  role: modifier
+ModifierTables_Group:
+  class_uri: ConceptGroup
+  name: ModifierTables
+  role: modifier
+  members:
+    - ModifierTables_drug_exposure
+    - ModifierTables_episode
+    - ModifierTables_observation
+  notes: Concept group derived from enum ModifierTables
+ModifierTables_drug_exposure:
+  class_uri: OmopConcept
+  concept_id: 1147339
+  label: Drug Exposure
+  role: modifier
+ModifierTables_episode:
+  class_uri: OmopConcept
+  concept_id: 35225440
+  label: Episode
+  role: modifier
+ModifierTables_observation:
+  class_uri: OmopConcept
+  concept_id: 1147304
+  label: Observation
+  role: modifier
+ProceduresByLocation_Group:
+  class_uri: ConceptGroup
+  name: ProceduresByLocation
+  role: modifier
+  members:
+    - ProceduresByLocation_procedure_on_lung
+    - ProceduresByLocation_operation_on_lung
+  notes: Concept group derived from enum ProceduresByLocation
+ProceduresByLocation_procedure_on_lung:
+  class_uri: OmopConcept
+  concept_id: 4040549
+  label: Procedure On Lung
+  role: modifier
+ProceduresByLocation_operation_on_lung:
+  class_uri: OmopConcept
+  concept_id: 4301352
+  label: Operation On Lung
+  role: modifier
+TreatmentModifiers_Group:
+  class_uri: ConceptGroup
+  name: TreatmentModifiers
+  role: modifier
+  members:
+    - TreatmentModifiers_rt_parameter
+    - TreatmentModifiers_rt_projection
+    - TreatmentModifiers_rt_site
+  notes: Concept group derived from enum TreatmentModifiers
+TreatmentModifiers_rt_parameter:
+  class_uri: OmopConcept
+  concept_id: 4036397
+  label: Rt Parameter
+  role: modifier
+TreatmentModifiers_rt_projection:
+  class_uri: OmopConcept
+  concept_id: 4124464
+  label: Rt Projection
+  role: modifier
+TreatmentModifiers_rt_site:
+  class_uri: OmopConcept
+  concept_id: 4240671
+  label: Rt Site
+  role: modifier

@@ -1,0 +1,13 @@
+id: https://example.org/omop_unknowns
+name: omop_unknowns
+title: OMOP Unknown and Default Concepts
+description: >
+  Canonical registry of OMOP concept identifiers representing
+  unknown, missing, unspecified, or default values used across
+  oncology data processing and analytics.
+imports:
+  - omop_semantic_core.yaml
+
+classes:
+
+

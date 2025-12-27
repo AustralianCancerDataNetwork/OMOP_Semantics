@@ -1,0 +1,71 @@
+id: https://example.org/omop_semantics
+name: unknown
+description: OMOP concepts for semantic role 'unknown'
+Unknown_Group:
+  class_uri: ConceptGroup
+  name: Unknown
+  role: unknown
+  members:
+    - Unknown_generic
+    - Unknown_gender
+    - Unknown_condition
+    - Unknown_cancer
+    - Unknown_grade
+    - Unknown_stage
+    - Unknown_stage_edition
+    - Unknown_cob
+    - Unknown_drug_trial
+    - Unknown_therapeutic_regimen
+  notes: Concept group derived from enum Unknown
+Unknown_generic:
+  class_uri: OmopConcept
+  concept_id: 4129922
+  label: Generic
+  role: unknown
+Unknown_gender:
+  class_uri: OmopConcept
+  concept_id: 4214687
+  label: Gender
+  role: unknown
+Unknown_condition:
+  class_uri: OmopConcept
+  concept_id: 44790729
+  label: Condition
+  role: unknown
+  parent_concepts:
+    - Unknown_generic
+Unknown_cancer:
+  class_uri: OmopConcept
+  concept_id: 36402660
+  label: Cancer
+  role: unknown
+Unknown_grade:
+  class_uri: OmopConcept
+  concept_id: 4264626
+  label: Grade
+  role: unknown
+Unknown_stage:
+  class_uri: OmopConcept
+  concept_id: 36768646
+  label: Stage
+  role: unknown
+Unknown_stage_edition:
+  class_uri: OmopConcept
+  concept_id: 1634449
+  label: Stage Edition
+  role: unknown
+Unknown_cob:
+  class_uri: OmopConcept
+  concept_id: 40482029
+  label: Cob
+  role: unknown
+Unknown_drug_trial:
+  class_uri: OmopConcept
+  concept_id: 4090378
+  label: Drug Trial
+  role: unknown
+Unknown_therapeutic_regimen:
+  class_uri: OmopConcept
+  concept_id: 4207655
+  label: Therapeutic Regimen
+  role: unknown

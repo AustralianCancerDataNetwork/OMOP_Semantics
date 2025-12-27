@@ -1,0 +1,57 @@
+id: https://example.org/omop_semantics
+name: episode_type
+description: OMOP concepts for semantic role 'episode_type'
+EpisodeTypes_Group:
+  class_uri: ConceptGroup
+  name: EpisodeTypes
+  role: episode_type
+  members:
+    - EpisodeTypes_ehr_defined
+    - EpisodeTypes_ehr_derived
+    - EpisodeTypes_ehr_prescription
+    - EpisodeTypes_ehr_planned_dispensing
+    - EpisodeTypes_ehr_encounter_record
+    - EpisodeTypes_ehr_admin_record
+    - EpisodeTypes_ehr_outpatient_note
+    - EpisodeTypes_rt_care_plan
+  notes: Concept group derived from enum EpisodeTypes
+EpisodeTypes_ehr_defined:
+  class_uri: OmopConcept
+  concept_id: 32544
+  label: Ehr Defined
+  role: episode_type
+EpisodeTypes_ehr_derived:
+  class_uri: OmopConcept
+  concept_id: 32545
+  label: Ehr Derived
+  role: episode_type
+EpisodeTypes_ehr_prescription:
+  class_uri: OmopConcept
+  concept_id: 32838
+  label: Ehr Prescription
+  role: episode_type
+EpisodeTypes_ehr_planned_dispensing:
+  class_uri: OmopConcept
+  concept_id: 32837
+  label: Ehr Planned Dispensing
+  role: episode_type
+EpisodeTypes_ehr_encounter_record:
+  class_uri: OmopConcept
+  concept_id: 32827
+  label: Ehr Encounter Record
+  role: episode_type
+EpisodeTypes_ehr_admin_record:
+  class_uri: OmopConcept
+  concept_id: 32818
+  label: Ehr Admin Record
+  role: episode_type
+EpisodeTypes_ehr_outpatient_note:
+  class_uri: OmopConcept
+  concept_id: 32834
+  label: Ehr Outpatient Note
+  role: episode_type
+EpisodeTypes_rt_care_plan:
+  class_uri: OmopConcept
+  concept_id: 42539609
+  label: Rt Care Plan
+  role: episode_type

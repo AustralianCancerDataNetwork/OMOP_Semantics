@@ -1,0 +1,27 @@
+id: https://example.org/omop_semantics
+name: metadata
+description: OMOP concepts for semantic role 'metadata'
+DocumentEncoding_Group:
+  class_uri: ConceptGroup
+  name: DocumentEncoding
+  role: metadata
+  members:
+    - DocumentEncoding_UTF8
+  notes: Concept group derived from enum DocumentEncoding
+DocumentEncoding_UTF8:
+  class_uri: OmopConcept
+  concept_id: 32678
+  label: Utf8
+  role: metadata
+Language_Group:
+  class_uri: ConceptGroup
+  name: Language
+  role: metadata
+  members:
+    - Language_english
+  notes: Concept group derived from enum Language
+Language_english:
+  class_uri: OmopConcept
+  concept_id: 4180186
+  label: English
+  role: metadata

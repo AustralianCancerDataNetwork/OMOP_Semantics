@@ -1,0 +1,15 @@
+id: https://example.org/omop_semantics
+name: document
+description: OMOP concepts for semantic role 'document'
+DocumentType_Group:
+  class_uri: ConceptGroup
+  name: DocumentType
+  role: document
+  members:
+    - DocumentType_oncology_note
+  notes: Concept group derived from enum DocumentType
+DocumentType_oncology_note:
+  class_uri: OmopConcept
+  concept_id: 706266
+  label: Oncology Note
+  role: document

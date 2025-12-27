@@ -1,0 +1,147 @@
+id: https://example.org/omop_semantics
+name: staging_axis
+description: OMOP concepts for semantic role 'staging_axis'
+MStageConcepts_Group:
+  class_uri: ConceptGroup
+  name: MStageConcepts
+  role: staging_axis
+  members:
+    - MStageConcepts_m0
+    - MStageConcepts_m1
+    - MStageConcepts_mx
+  notes: Concept group derived from enum MStageConcepts
+MStageConcepts_m0:
+  class_uri: OmopConcept
+  concept_id: 1635624
+  label: M0
+  role: staging_axis
+MStageConcepts_m1:
+  class_uri: OmopConcept
+  concept_id: 1635142
+  label: M1
+  role: staging_axis
+MStageConcepts_mx:
+  class_uri: OmopConcept
+  concept_id: 1633547
+  label: Mx
+  role: staging_axis
+NStageConcepts_Group:
+  class_uri: ConceptGroup
+  name: NStageConcepts
+  role: staging_axis
+  members:
+    - NStageConcepts_n0
+    - NStageConcepts_n1
+    - NStageConcepts_n2
+    - NStageConcepts_n3
+    - NStageConcepts_n4
+    - NStageConcepts_nx
+  notes: Concept group derived from enum NStageConcepts
+NStageConcepts_n0:
+  class_uri: OmopConcept
+  concept_id: 1633440
+  label: N0
+  role: staging_axis
+NStageConcepts_n1:
+  class_uri: OmopConcept
+  concept_id: 1634434
+  label: N1
+  role: staging_axis
+NStageConcepts_n2:
+  class_uri: OmopConcept
+  concept_id: 1634119
+  label: N2
+  role: staging_axis
+NStageConcepts_n3:
+  class_uri: OmopConcept
+  concept_id: 1635320
+  label: N3
+  role: staging_axis
+NStageConcepts_n4:
+  class_uri: OmopConcept
+  concept_id: 1635445
+  label: N4
+  role: staging_axis
+NStageConcepts_nx:
+  class_uri: OmopConcept
+  concept_id: 1633885
+  label: Nx
+  role: staging_axis
+StageEdition_Group:
+  class_uri: ConceptGroup
+  name: StageEdition
+  role: staging_axis
+  members:
+    - StageEdition__6th
+    - StageEdition__7th
+    - StageEdition__8th
+  notes: Concept group derived from enum StageEdition
+StageEdition__6th:
+  class_uri: OmopConcept
+  concept_id: 1634647
+  label: ' 6Th'
+  role: staging_axis
+StageEdition__7th:
+  class_uri: OmopConcept
+  concept_id: 1633496
+  label: ' 7Th'
+  role: staging_axis
+StageEdition__8th:
+  class_uri: OmopConcept
+  concept_id: 1634449
+  label: ' 8Th'
+  role: staging_axis
+TStageConcepts_Group:
+  class_uri: ConceptGroup
+  name: TStageConcepts
+  role: staging_axis
+  members:
+    - TStageConcepts_t0
+    - TStageConcepts_t1
+    - TStageConcepts_t2
+    - TStageConcepts_t3
+    - TStageConcepts_t4
+    - TStageConcepts_ta
+    - TStageConcepts_tx
+    - TStageConcepts_tis
+  notes: Concept group derived from enum TStageConcepts
+TStageConcepts_t0:
+  class_uri: OmopConcept
+  concept_id: 1634213
+  label: T0
+  role: staging_axis
+TStageConcepts_t1:
+  class_uri: OmopConcept
+  concept_id: 1635564
+  label: T1
+  role: staging_axis
+TStageConcepts_t2:
+  class_uri: OmopConcept
+  concept_id: 1635562
+  label: T2
+  role: staging_axis
+TStageConcepts_t3:
+  class_uri: OmopConcept
+  concept_id: 1634376
+  label: T3
+  role: staging_axis
+TStageConcepts_t4:
+  class_uri: OmopConcept
+  concept_id: 1634654
+  label: T4
+  role: staging_axis
+TStageConcepts_ta:
+  class_uri: OmopConcept
+  concept_id: 1635114
+  label: Ta
+  role: staging_axis
+TStageConcepts_tx:
+  class_uri: OmopConcept
+  concept_id: 1635682
+  label: Tx
+  role: staging_axis
+TStageConcepts_tis:
+  class_uri: OmopConcept
+  concept_id: 1634530
+  label: Tis
+  role: staging_axis
