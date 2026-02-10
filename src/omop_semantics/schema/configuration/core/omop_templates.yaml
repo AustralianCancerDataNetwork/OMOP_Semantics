@@ -1,0 +1,59 @@
+id: https://example.org/omop_semantics
+name: omop_templates
+title: OMOP Semantic Templates
+description: >
+  Core structure for OMOP concept identifiers used for
+  complex semantic definitions, such as staging of neoplastic 
+  disease through condition modifiers and their appropriate
+  handling in episodes.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  omop: https://athena.ohdsi.org/search-terms/terms/
+
+default_prefix: omop
+default_range: string
+
+imports:
+  - linkml:types
+  - omop_base
+  - omop_profiles
+
+classes:
+  OmopTemplate:
+    description: >
+      A compositional semantic template describing how one or more OMOP concepts
+      are represented in OMOP CDM tables (e.g. observation, measurement).
+    slots:
+      - name
+      - role
+      - entity_concept
+      - value_concept
+      - cdm_profile
+      - notes
+slots:
+  role:
+    range: string 
+    required: true
+  entity_concept:
+    description: >
+      Concept or group of concepts that may populate the CDM concept slot
+      for this template. If a group or enumeration is provided, any member 
+      of the group or enumeration is valid.
+    range: OmopSemanticObject
+    any_of:
+      - range: OmopGroup
+      - range: OmopEnum
+      - range: OmopConcept
+  value_concept:
+    description: >
+      Group of permissible values for value slots (e.g. value_as_concept_id).
+    range: OmopSemanticObject
+    any_of:
+      - range: OmopGroup
+      - range: OmopEnum
+      - range: OmopConcept
+  cdm_profile:
+    range: OmopCdmProfile
+    required: true
+

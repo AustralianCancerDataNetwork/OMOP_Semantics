@@ -1,0 +1,42 @@
+id: https://example.org/omop_semantics/cdm_profiles
+name: cdm_profiles
+
+imports:
+  - omop_base
+
+classes:
+  CDMProfiles:
+    slots:
+      - profiles
+    tree_root: true
+  OmopCdmProfile:
+    slots:
+      - name
+      - cdm_table
+      - concept_slot
+      - value_slot
+slots:
+  profiles:
+    range: OmopCdmProfile
+    multivalued: true
+  name:
+    range: string
+    required: true
+  cdm_table:
+    range: CdmTable
+    required: true
+  concept_slot:
+    range: string
+    required: true
+  value_slot:
+    range: string
+    required: false
+enums:
+  CdmTable:
+    description: OMOP CDM table to which a semantic template applies
+    permissible_values:
+      observation:
+      measurement:
+      drug_exposure:
+      procedure_occurrence:
+      condition_occurrence:

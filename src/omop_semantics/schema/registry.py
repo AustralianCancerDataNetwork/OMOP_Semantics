@@ -2,31 +2,9 @@
 from dataclasses import dataclass, replace
 from typing import Optional, Tuple, Iterable, Iterator, Mapping, Protocol, runtime_checkable, Any
 from collections import defaultdict
-from .schema_model import SchemaInfo
-
-@dataclass(frozen=True)
-class ConceptRecord:
-    concept_id: int
-    label: str
-    role: str
-    parents: Tuple[int, ...] = ()
-    notes: Optional[str] = None
-
-@dataclass(frozen=True)
-class ConceptGroupRecord:
-    name: str
-    role: str
-    members: tuple[int, ...]
-    notes: Optional[str] = None
-
-@runtime_checkable
-class SupportsConceptRegistry(Protocol):
-    def get(self, concept_id: int) -> ConceptRecord: ...
-    def try_get(self, concept_id: int) -> Optional[ConceptRecord]: ...
-    def by_role(self, role: str) -> set[int]: ...
-    def parents_of(self, concept_id: int) -> tuple[int, ...]: ...
-    def ancestors_of(self, concept_id: int) -> tuple[int, ...]: ...
-
+from html import escape
+from .schema_model import SchemaInfo, ConceptGroupRecord, ConceptRecord
+from .pretty import preview, html_table, html_kv
 
 class ConceptRegistry:
     """
@@ -46,11 +24,13 @@ class ConceptRegistry:
         self._by_role: dict[str, set[int]] = defaultdict(set)
         self._by_label: dict[str, int] = {}
         self._groups_by_member: dict[int, set[str]] = defaultdict(set)
+        self._groups_by_role: dict[str, dict[str, ConceptGroupRecord]] = defaultdict(dict)
 
         for g in groups:
             self._groups[g.name.lower()] = g
             for cid in g.members:
                 self._groups_by_member[cid].add(g.name)
+                self._groups_by_role[g.role][g.name.lower()] = g
 
         for c in concepts:
             self._concepts[c.concept_id] = c
@@ -143,54 +123,32 @@ class ConceptRegistry:
 
     def group_members(self, name: str) -> tuple[int, ...]:
         return self.group(name).members
-
-    def parents_of(self, concept_id: int) -> tuple[int, ...]:
-        return self.get(concept_id).parents
     
     def in_group(self, concept_id: int, group: str) -> bool:
         return concept_id in self._groups_by_member and group in self._groups_by_member[concept_id]
 
     def groups_by_role(self, role: str) -> dict[str, ConceptGroupRecord]:
-        return {
-            name: group
-            for name, group in self._groups.items()
-            if group.role == role
-        }
+        return self._groups_by_role.get(role, {})
 
-    def ancestors_of(self, concept_id: int) -> tuple[int, ...]:
+    def by_label(self, label: str) -> int:
         """
-        Semantic ancestors via ConceptRecord.parents, not OMOP concept_ancestor.
-        Cached per registry instance.
+        Resolve a concept_id by case-insensitive label.
         """
-        if concept_id in self._ancestor_cache:
-            return self._ancestor_cache[concept_id]
+        return self._by_label[label.lower()]
 
-        seen: set[int] = set()
-        stack = list(self.parents_of(concept_id))
+    def try_by_label(self, label: str) -> int | None:
+        return self._by_label.get(label.lower())
 
-        while stack:
-            pid = stack.pop()
-            if pid in seen:
-                continue
-            seen.add(pid)
-            rec = self.try_get(pid)
-            if rec:
-                stack.extend(rec.parents)
-
-        out = tuple(sorted(seen))
-        self._ancestor_cache[concept_id] = out
-        return out
-
-    def descendants_of(self, concept_id: int) -> tuple[int, ...]:
+    def require(self, *, role: str, label: str) -> int:
         """
-        Inverse semantic traversal (O(n) scan). Fine for your scale.
+        Resolve a concept by role + label, with a clear error if missing.
         """
-        out = []
-        for c in self._concepts.values():
-            if concept_id in c.parents:
-                out.append(c.concept_id)
-        return tuple(sorted(out))
-
+        cid = self._by_label.get(label.lower())
+        if cid is None:
+            raise KeyError(f"No concept with label '{label}'")
+        if not self.is_role(cid, role):
+            raise ValueError(f"Concept '{label}' is not role={role}")
+        return cid
 
     def validate(
         self,
@@ -234,9 +192,6 @@ class ConceptRegistry:
                             f"Concept {c.concept_id} has parent {pid} not present in registry"
                         )
 
-            # cycle detection (semantic parents)
-            self._validate_no_parent_cycles()
-
         # group members
         if strict_group_members:
             for g in self._groups.values():
@@ -245,27 +200,6 @@ class ConceptRegistry:
                         raise ValueError(
                             f"Group '{g.name}' references member {mid} not present in registry"
                         )
-
-    def _validate_no_parent_cycles(self) -> None:
-        # DFS cycle detection
-        visiting: set[int] = set()
-        visited: set[int] = set()
-
-        def dfs(node: int) -> None:
-            if node in visited:
-                return
-            if node in visiting:
-                raise ValueError(f"Cycle detected in semantic parents involving {node}")
-            visiting.add(node)
-            rec = self._concepts[node]
-            for p in rec.parents:
-                if p in self._concepts:
-                    dfs(p)
-            visiting.remove(node)
-            visited.add(node)
-
-        for cid in self._concepts:
-            dfs(cid)
 
     def to_linkml_instances(
         self,
@@ -411,35 +345,126 @@ class ConceptRegistry:
             suffix = f" — {desc}" if desc else ""
             lines.append(f"    - {role}: {len(cids)}{suffix}")
         return "\n".join(lines)
+    
+    def _role_counts_sorted(self) -> list[tuple[str, int]]:
+        return sorted(
+            ((role, len(cids)) for role, cids in self._by_role.items()),
+            key=lambda x: (-x[1], x[0]),
+        )
 
+    def _top_groups(self, *, limit: int = 8) -> list[ConceptGroupRecord]:
+        # groups stored keyed by lowercase; values are ConceptGroupRecord
+        groups = sorted(self._groups.values(), key=lambda g: (-len(g.members), g.name.lower()))
+        return groups[:limit]
+
+    def _unknown_count(self) -> int:
+        return len(self._by_role.get("unknown", set()))
+    
     def _repr_html_(self) -> str:
-        # lightweight: no external deps, works in notebooks
-        rows = []
-        for role in sorted(self._by_role.keys()):
-            rows.append(
-                f"<tr><td><code>{role}</code></td>"
-                f"<td style='text-align:right'>{len(self._by_role[role])}</td>"
-                f"<td>{(self.describe_role(role) or '')}</td></tr>"
-            )
+        # Headline
+        concepts_n = len(self._concepts)
+        groups_n = len(self._groups)
+        roles_n = len(self._by_role)
+        has_schema = self._schema is not None
+
+        # Schema previews
+        schema_roles_preview = ""
+        schema_classes_preview = ""
+        if self._schema:
+            schema_roles_preview = preview(sorted(self._schema.roles.keys()), limit=6)
+            schema_classes_preview = preview(sorted(self._schema.classes), limit=6)
+
+        # Role distribution table
+        role_rows: list[list[str]] = []
+        for role, count in self._role_counts_sorted():
+            desc = self.describe_role(role) or ""
+            role_rows.append([
+                f"<code>{escape(role)}</code>",
+                f"<span style='text-align:right; display:inline-block; min-width:3ch'>{count}</span>",
+                escape(desc),
+            ])
+
+        role_table = html_table(
+            headers=["Role", "Count", "Description"],
+            rows=role_rows,
+        )
+
+        # Groups table (top N by size)
+        group_rows: list[list[str]] = []
+        for g in self._top_groups(limit=10):
+            member_preview = preview([str(m) for m in g.members], limit=6)
+            kind = g.kind or ""
+            group_rows.append([
+                f"<b>{escape(g.name)}</b><br/><span style='color:#666'><code>{escape(g.role)}</code></span>",
+                escape(kind),
+                "true" if g.exclusive else "",
+                f"{len(g.members)}<br/><span style='color:#666'>{escape(member_preview)}</span>",
+            ])
+
+        group_table = html_table(
+            headers=["Group (role)", "Kind", "Exclusive", "Members"],
+            rows=group_rows,
+        )
+
+        # Compact “facts” panel
+        facts_rows = "".join([
+            html_kv("Concepts", str(concepts_n)),
+            html_kv("Groups", str(groups_n)),
+            html_kv("Roles", str(roles_n)),
+            html_kv("Schema loaded", "yes" if has_schema else "no"),
+            *( [html_kv("Schema roles", schema_roles_preview)] if schema_roles_preview else [] ),
+            *( [html_kv("Schema classes", schema_classes_preview)] if schema_classes_preview else [] ),
+        ])
+
+        unknown_n = self._unknown_count()
+        unknown_badge = ""
+        if unknown_n:
+            unknown_badge = f"""
+            <div style="margin-top:8px; padding:8px; border:1px solid #f0c36d; background:#fff7e6; border-radius:10px;">
+              <b>Unknown concepts:</b> {unknown_n}
+              <div style="color:#666; margin-top:2px;">
+                Concepts in role <code>unknown</code>. Consider ensuring you have at least one canonical fallback unknown.
+              </div>
+            </div>
+            """
+
         return f"""
-        <div style="font-family: system-ui, sans-serif">
-          <div style="margin-bottom:6px;">
-            <b>ConceptRegistry</b>
-            <span style="color:#666">({len(self._concepts)} concepts, {len(self._groups)} groups)</span>
+        <div style="font-family: system-ui, sans-serif; max-width: 980px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+            <div>
+              <div style="font-size: 18px; font-weight: 700;">ConceptRegistry</div>
+              <div style="color:#666; margin-top:2px;">
+                {concepts_n} concepts • {groups_n} groups • {roles_n} roles • schema: {"yes" if has_schema else "no"}
+              </div>
+            </div>
+            <div style="color:#666; font-size: 12px;">
+              {escape(repr(self))}
+            </div>
           </div>
-          <table style="border-collapse:collapse; width:100%; max-width:720px">
-            <thead>
-              <tr>
-                <th style="text-align:left; border-bottom:1px solid #ddd; padding:4px;">Role</th>
-                <th style="text-align:right; border-bottom:1px solid #ddd; padding:4px;">Count</th>
-                <th style="text-align:left; border-bottom:1px solid #ddd; padding:4px;">Description</th>
-              </tr>
-            </thead>
-            <tbody>{''.join(rows)}</tbody>
-          </table>
+
+          {unknown_badge}
+
+          <div style="display:grid; grid-template-columns: 360px 1fr; gap:14px; margin-top:12px;">
+            <div style="border:1px solid #e6e6e6; border-radius:12px; padding:10px;">
+              <div style="font-weight:600; margin-bottom:6px;">Summary</div>
+              <table style="border-collapse:collapse; width:100%;">{facts_rows}</table>
+            </div>
+
+            <div style="border:1px solid #e6e6e6; border-radius:12px; padding:10px;">
+              <div style="font-weight:600; margin-bottom:6px;">Roles</div>
+              {role_table}
+            </div>
+          </div>
+
+          <div style="border:1px solid #e6e6e6; border-radius:12px; padding:10px; margin-top:14px;">
+            <div style="font-weight:600; margin-bottom:6px;">Largest groups</div>
+            <div style="color:#666; margin-bottom:8px;">
+              Top groups by member count (preview shows concept_ids).
+            </div>
+            {group_table}
+          </div>
         </div>
         """
-    
 
 @dataclass(frozen=True)
 class RegistryDiff:
@@ -485,3 +510,5 @@ class RegistryDiff:
             f"-g={len(self.removed_groups)} "
             f"~g={len(self.changed_groups)}>"
         )
+    
+    

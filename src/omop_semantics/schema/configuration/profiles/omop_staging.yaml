@@ -1,0 +1,256 @@
+id: https://example.org/omop_semantics
+name: staging
+description: OMOP concepts for semantic role 'staging'
+imports:
+  - ../configuration/core/omop_base.yaml
+  - ../configuration/registry/omop_semantic_registry.yaml
+StagingAxis:
+  is_a: RegistryFragment
+  name: StagingAxis
+  role: staging
+  groups:
+    - TStageConcepts
+    - NStageConcepts
+    - MStageConcepts
+    - GroupStageConcepts
+  notes: Staging axes for neoplastic disease
+TStageConcepts:
+  is_a: RegistryGroup
+  name: TStageConcepts
+  role: staging
+  registry_members:
+    - T0
+    - T1
+    - T2
+    - T3
+    - T4
+    - Ta
+    - Tis
+    - TX
+NStageConcepts:
+  is_a: RegistryGroup
+  name: NStageConcepts
+  role: staging
+  registry_members:
+    - N0
+    - N1
+    - N2
+    - N3
+    - N4
+    - NX
+MStageConcepts:
+  is_a: RegistryGroup
+  name: MStageConcepts
+  role: staging
+  registry_members:
+    - M0
+    - M1
+    - MX
+GroupStageConcepts:
+  is_a: RegistryGroup
+  name: GroupStageConcepts
+  role: staging
+  registry_members:
+    - group_stage
+group_stage:
+  is_a: OmopTemplate
+  name: Group Stage
+  entity_concept: group_stage_entity
+  cdm_profile: observation_simple
+  notes: Template for representing Group Stage categories in the observation table, using Group Stage concepts as the entity_concept and permissible Group Stage categories as the value_concept
+group_stage_entity:
+  class_uri: OmopValueSet
+  name: Group Stage Values
+  members:
+    - group_stage_0
+    - group_stage_I
+    - group_stage_II
+    - group_stage_III
+    - group_stage_IV
+  notes: Permissible Group Stage categories
+
+t_stage:
+  class_uri: OmopTemplate
+  name: T Stage
+  role: staging
+  entity_concept: t_stage_entity
+  cdm_table: observation
+  concept_slot: observation_concept_id
+t_stage_entity:
+  class_uri: OmopValueSet
+  name: T Stage Values
+  members:
+    - T0
+    - T1
+    - T2
+    - T3
+    - T4
+    - Ta
+    - Tis
+    - TX
+  notes: Permissible T Stage categories
+n_stage:
+  class_uri: OmopTemplate
+  name: N Stage
+  role: staging
+  entity_concept: n_stage_entity
+  cdm_table: observation
+  concept_slot: observation_concept_id
+n_stage_entity:
+  class_uri: OmopValueSet
+  name: N Stage Values
+  members:
+    - N0
+    - N1
+    - N2
+    - N3
+    - N4
+    - NX
+  notes: Permissible N Stage categories
+m_stage:
+  class_uri: OmopTemplate
+  name: M Stage
+  role: staging
+  entity_concept: m_stage_entity
+  cdm_table: observation
+  concept_slot: observation_concept_id
+m_stage_entity:
+  class_uri: OmopValueSet
+  name: M Stage Values
+  members:
+    - M0
+    - M1
+    - MX
+  notes: Permissible M Stage categories
+group_stage_0:
+  class_uri: OmopGroup
+  parent_concepts: 
+    - concept_id: 1633754
+      label: Stage0
+  role: staging
+group_stage_I:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id: 1633306
+      label: StageI
+  role: staging
+group_stage_II:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id: 1634209
+      label: StageII
+  role: staging
+group_stage_III:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id: 1633650
+      label: StageIII
+  role: staging
+group_stage_IV:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id: 1633308
+      label: StageIV
+  role: staging
+T0:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634213
+      label: T0
+  role: staging
+T1:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634214
+      label: T1
+  role: staging
+T2:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634215
+      label: T2
+  role: staging
+T3:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634216
+      label: T3
+  role: staging
+T4:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634217
+      label: T4
+  role: staging
+TX:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634218
+      label: TX
+  role: staging 
+Ta:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1635114
+      label: Ta
+  role: staging
+Tis:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634530  
+      label: Tis
+  role: staging
+N0:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1633440
+      label: N0
+  role: staging
+N1:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634434
+      label: N1
+  role: staging
+N2:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1634119
+      label: N2
+  role: staging
+N3:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1635320
+      label: N3
+  role: staging
+N4:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1635445
+      label: N4
+  role: staging
+NX:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1633885
+      label: NX
+  role: staging
+M0:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1635624
+      label: M0
+  role: staging
+M1:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1635142  
+      label: M1
+  role: staging
+MX:
+  class_uri: OmopGroup
+  parent_concepts:
+    - concept_id:  1633547
+      label: MX 
+  role: staging

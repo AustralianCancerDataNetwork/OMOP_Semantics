@@ -1,27 +1,37 @@
-id: https://example.org/omop_semantics
-name: demographic
-description: OMOP concepts for semantic role 'demographic'
-DemographyConcepts_Group:
-  class_uri: ConceptGroup
-  name: DemographyConcepts
-  role: demographic
-  members:
-    - DemographyConcepts_cob
-    - DemographyConcepts_language_spoken
-    - DemographyConcepts_postcode
-  notes: Concept group derived from enum DemographyConcepts
-DemographyConcepts_cob:
-  class_uri: OmopConcept
-  concept_id: 4155450
-  label: Cob
-  role: demographic
-DemographyConcepts_language_spoken:
-  class_uri: OmopConcept
-  concept_id: 4052785
-  label: Language Spoken
-  role: demographic
-DemographyConcepts_postcode:
-  class_uri: OmopConcept
-  concept_id: 4083591
-  label: Postcode
-  role: demographic
+groups:
+  - name: DemographyConcepts
+    role: demographic
+    registry_members:
+      - name: Country of birth
+        role: demographic
+        entity_concept:
+          name: Country of Birth
+          class_uri: OmopGroup
+          parent_concepts:
+          - concept_id: 4155450
+            label: Country of birth
+        cdm_profile: observation_simple
+      - name: Language spoken
+        role: demographic
+        entity_concept:
+          name: Language Spoken
+          class_uri: OmopConcept
+          concept_id: 4052785
+          label: Language spoken
+        value_concept:
+          name: Language Spoken Values
+          class_uri: OmopGroup
+          parent_concepts:
+            - concept_id: 4182347
+              label: World languages
+          notes: Permissible language values
+        cdm_profile: observation_coded
+      - name: Postcode
+        role: demographic
+        entity_concept:
+          name: Postcode
+          class_uri: OmopConcept
+          concept_id: 4083591
+          label: Postcode
+        cdm_profile: observation_string
+    notes: Demographic semantic templates

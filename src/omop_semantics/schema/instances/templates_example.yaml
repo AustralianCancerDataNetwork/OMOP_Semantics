@@ -1,0 +1,92 @@
+# Example instance file for testing OmopTemplate validation
+
+templates:
+
+  # 1. Group-based entity concept (hierarchical expansion)
+  - name: Country of birth
+    role: demographic
+    entity_concept:
+      class_uri: OmopGroup
+      name: Country of Birth
+      parent_concepts:
+        - concept_id: 4155450
+          label: abc
+    cdm_table: observation
+    concept_slot: observation_concept_id
+
+  # 2. Single fixed concept entity
+  - name: Language spoken
+    role: demographic
+    entity_concept:
+      class_uri: OmopConcept
+      name: Language Spoken
+      concept_id: 4052785
+      label: Language spoken
+    cdm_table: observation
+    concept_slot: observation_concept_id
+
+  # 3. Enum-based entity concept (fixed set of permissible axes)
+  - name: TNM Stage Axis
+    role: staging
+    entity_concept:
+      class_uri: OmopEnum
+      name: TNM Axis
+      enum_members:
+        - concept_id: 1001
+          label: T
+        - concept_id: 1002
+          label: N
+        - concept_id: 1003
+          label: M
+    cdm_table: observation
+    concept_slot: observation_concept_id
+
+  # 4. Template with coded value (value_as_concept_id)
+  - name: ECOG performance status
+    role: performance_status
+    entity_concept:
+      class_uri: OmopConcept
+      name: ECOG Performance Status
+      concept_id: 36769180
+      label: ECOG performance status
+    value_concept:
+      class_uri: OmopEnum
+      name: ECOG Values
+      enum_members:
+        - concept_id: 0
+          label: ECOG 0
+        - concept_id: 1
+          label: ECOG 1
+        - concept_id: 2
+          label: ECOG 2
+        - concept_id: 3
+          label: ECOG 3
+        - concept_id: 4
+          label: ECOG 4
+    cdm_table: observation
+    concept_slot: observation_concept_id
+    value_slot: value_as_concept_id
+
+  # 5. Free-text value template (no value_concept)
+  - name: Patient comment
+    role: free_text
+    entity_concept:
+      class_uri: OmopConcept
+      name: Patient Comment
+      concept_id: 999999
+      label: Patient comment
+    cdm_table: observation
+    concept_slot: observation_concept_id
+    value_slot: value_as_string
+
+  # 6. Numeric value template (measurement-style)
+  - name: Weight
+    role: measurement
+    entity_concept:
+      class_uri: OmopConcept
+      name: Body Weight
+      concept_id: 3025315
+      label: Body weight
+    cdm_table: measurement
+    concept_slot: measurement_concept_id
+    value_slot: value_as_number

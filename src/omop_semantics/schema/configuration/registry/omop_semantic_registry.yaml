@@ -1,0 +1,75 @@
+id: https://example.org/omop_semantic_registry
+name: omop_semantic_registry
+title: OMOP Semantic Concept Registry
+description: >
+  Grouped registry structure for OMOP concept profiles used for
+  complex semantic definitions, such as staging of neoplastic 
+  disease through condition modifiers and their appropriate
+  handling in episodes.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  omop: https://athena.ohdsi.org/search-terms/terms/
+
+default_prefix: omop
+default_range: string
+
+imports:
+  - linkml:types
+  - ../core/omop_templates
+
+classes:
+  Registry:
+    description: >
+      A registry of OMOP concepts, templates, and groups used for complex semantic definitions.
+    slots:
+      - name
+      - description
+      - fragments
+
+  RegistryFragment:
+    slots:
+      - groups
+    tree_root: true
+
+  RegistryGroup:
+    description: >
+      Named grouping of semantic templates or definitions in the registry,
+      used for organisation, documentation, and navigation. Members are
+      registry symbols, not OMOP concept identifiers.
+    slots:
+      - name
+      - role
+      - registry_members
+      - notes
+
+slots:
+  registry_members:
+    description: >
+      List of registry symbols that are members of this group. These are not OMOP concept identifiers, 
+      but rather references to other symbols in the registry, such as templates or groups. This is intended 
+      for organisation and documentation purposes, and does not have any semantic meaning beyond indicating 
+      that these symbols are related in some way.
+    range: OmopTemplate
+    multivalued: true
+  
+  groups:
+    range: RegistryGroup
+    multivalued: true
+    description: >
+      List of registry groups contained in this registry. This is intended for organisation and documentation 
+      purposes, and does not have any semantic meaning beyond indicating that these groups are part of the same 
+      registry.
+  
+  description:
+    range: string
+    description: >
+      Description of the registry or group, intended for documentation purposes.
+
+  fragments:
+    range: RegistryFragment
+    multivalued: true
+    description: >
+      List of registry fragments contained in this registry. This is intended for modularisation
+      of units of semantic definitions, such as all concepts related to staging of neoplastic disease
+      so that then can be reused in different registry profile definitions.

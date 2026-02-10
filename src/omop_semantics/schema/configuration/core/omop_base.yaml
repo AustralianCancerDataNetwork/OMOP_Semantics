@@ -1,0 +1,124 @@
+id: https://example.org/omop_semantics
+name: omop_semantic_object
+title: OMOP Semantic Object
+description: >
+  Core structure for OMOP concept identifiers used for
+  complex semantic definitions, such as staging of neoplastic 
+  disease through condition modifiers and their appropriate
+  handling in episodes.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  omop: https://athena.ohdsi.org/search-terms/terms/
+
+default_prefix: omop
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  OmopSemanticObject:
+    abstract: true
+    slots:
+      - class_uri
+      - name
+      - notes
+
+  OmopGroup:
+    is_a: OmopSemanticObject
+    description: >
+      Named group of OMOP concepts defined by their membership in a particular group, such 
+      as hierarchy and / or domain. Importantly, this is not a static definition and if the
+      vocabularies are updated, the membership of these groups may change. This is intended to be used
+      for defining sets of concepts that are used in semantic definitions, such as the set of all 
+      T stage concepts.
+    slots:
+      - parent_concepts
+    slot_usage:
+      class_uri:
+        equals_string: OmopGroup
+
+  OmopConcept:
+    is_a: OmopSemanticObject
+    description: A single OMOP concept with semantic annotations
+    slots:
+      - concept_id
+      - label
+    slot_usage:
+      class_uri:
+        equals_string: OmopConcept
+
+  OmopEnum:
+    is_a: OmopSemanticObject
+    description: >
+      Enumeration of permissible values for a particular slot. This is intended to be used for defining
+      slots that have a fixed set of permissible values, such as the staging axis (T, N, M, Group).
+      This will not update dynamically with vocabulary updates, so should be used for concepts that are 
+      short lists and not expected to change over time.
+    slots:
+      - enum_members  
+    slot_usage:
+      class_uri:
+        equals_string: OmopEnum
+
+  OmopValueSet:
+    is_a: OmopSemanticObject
+    description: >
+      A semantic grouping of permissible values for a template slot.
+      Members may be OmopConcepts, OmopGroups, or OmopEnums. This represents
+      a registry-level value domain, not a direct OMOP structure.
+    slots:
+      - members
+    slot_usage:
+      class_uri:
+        equals_string: OmopValueSet
+
+  Concept:
+    slots:
+      - concept_id
+      - label
+    description: >
+      Concept that serves as a member of an OmopEnum. This is intended to be used
+      for defining the permissible values of an OmopEnum, which is a fixed enumeration 
+      of concepts that does not change dynamically with vocabulary updates. 
+      The concept_id and label slots are used to specify the concept_id 
+      and label of the concept that serves as a member of the enumeration.
+
+slots:
+
+  name:
+    range: string
+    required: true
+
+  concept_id:
+    range: integer
+    description: OMOP concept_id
+
+  label:
+    range: string
+    required: false
+
+  parent_concepts:
+    range: Concept
+    multivalued: true
+    description: Semantic parent concepts or grouping parents. 
+
+  enum_members:
+    range: Concept
+    multivalued: true
+    required: true
+
+  members:
+    range: OmopSemanticObject
+    multivalued: true
+
+  notes:
+    range: string
+    required: false
+
+  class_uri:
+    range: string
+    required: true
+

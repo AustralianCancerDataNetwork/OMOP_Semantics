@@ -1,0 +1,33 @@
+profiles:
+  - name: observation_simple
+    cdm_table: observation
+    concept_slot: observation_concept_id
+  - name: observation_coded
+    cdm_table: observation
+    concept_slot: observation_concept_id
+    value_slot: value_as_concept_id
+  - name: observation_string
+    cdm_table: observation
+    concept_slot: observation_concept_id
+    value_slot: value_as_string
+  - name: measurement_numeric
+    cdm_table: measurement
+    concept_slot: measurement_concept_id
+    value_slot: value_as_number
+  - name: measurement_coded
+    cdm_table: measurement
+    concept_slot: measurement_concept_id
+    value_slot: value_as_concept_id
+  - name: procedure_simple
+    cdm_table: procedure_occurrence
+    concept_slot: procedure_concept_id
+  - name: condition_simple
+    cdm_table: condition_occurrence
+    concept_slot: condition_concept_id
+  - name: drug_exposure_simple
+    cdm_table: drug_exposure
+    concept_slot: drug_concept_id
+  - name: drug_exposure_dose
+    cdm_table: drug_exposure
+    concept_slot: drug_concept_id
+    value_slot: dose_value

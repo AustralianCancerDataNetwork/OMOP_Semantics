@@ -1,0 +1,53 @@
+id: https://example.org/omop_semantic_registry/profile_groups
+name: omop_profile_groups
+title: OMOP Semantic Registry – Profile Groups
+description: >
+  Registry groupings of valid OMOP CDM projection profiles by table.
+
+imports:
+  - omop_semantic_registry.yaml
+
+ObservationProfiles:
+  class_uri: RegistryGroup
+  name: ObservationProfiles
+  role: cdm_profile_set
+  members:
+    - observation_simple
+    - observation_coded
+    - observation_string
+  notes: Valid CDM projection profiles for the OMOP OBSERVATION table
+
+
+MeasurementProfiles:
+  class_uri: RegistryGroup
+  name: MeasurementProfiles
+  role: cdm_profile_set
+  members:
+    - measurement_numeric
+    - measurement_coded
+  notes: Valid CDM projection profiles for the OMOP MEASUREMENT table
+
+
+ProcedureProfiles:
+  class_uri: RegistryGroup
+  name: ProcedureProfiles
+  role: cdm_profile_set
+  members:
+    - procedure_simple
+
+
+ConditionProfiles:
+  class_uri: RegistryGroup
+  name: ConditionProfiles
+  role: cdm_profile_set
+  members:
+    - condition_simple
+
+
+DrugExposureProfiles:
+  class_uri: RegistryGroup
+  name: DrugExposureProfiles
+  role: cdm_profile_set
+  members:
+    - drug_exposure_simple
+    - drug_exposure_dose

@@ -1,0 +1,17 @@
+id: https://example.org/omop_semantics/oncology_registry_profile
+name: oncology_registry_profile
+title: Oncology Registry Profile
+description: >
+  Registry of OMOP concepts, templates, and groups used for 
+  complex semantic definitions in the Oncology Extension.
+
+imports:
+  - ../configuration/core/omop_semantic_core.yaml
+  - ../configuration/core/omop_profiles.yaml
+  - ../configuration/registry/omop_semantic_registry.yaml
+  - demographic.yaml
+  - staging.yaml
+
+groups:
+  - DemographyConcepts
+  #- StagingConcepts
