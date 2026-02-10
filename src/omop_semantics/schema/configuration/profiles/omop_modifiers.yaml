@@ -1,0 +1,45 @@
+id: https://example.org/omop_semantics
+name: staging
+description: OMOP concepts for semantic role 'staging'
+imports:
+  - ../configuration/core/omop_base.yaml
+  - ../configuration/registry/omop_semantic_registry.yaml
+Modifiers:
+  is_a: RegistryFragment
+  name: Modifiers
+  role: modifiers
+  groups:
+    - TStageConcepts
+    - NStageConcepts
+    - MStageConcepts
+    - GroupStageConcepts
+  notes: Modifiers for neoplastic disease
+ModifierFields:
+  is_a: RegistryGroup
+  name: ModifierFields
+  role: modifiers
+  registry_members:
+    - modifier_fields
+    - modifier_tables
+modifier_fields:
+  class_uri: OmopEnum
+  name: ModifierFields
+  enum_members:
+    - concept_id: 1147127
+      label: condition_occurrence_id
+    - concept_id: 1147707
+      label: drug_exposure_id
+    - concept_id: 1147082
+      label: procedure_occurrence_id
+    - concept_id: 756290
+      label: episode_id
+modifier_tables:
+  class_uri: OmopEnum
+  name: ModifierTables
+  enum_members:
+    - concept_id: 1147339
+      label: drug_exposure
+    - concept_id: 35225440
+      label: episode
+    - concept_id: 1147304
+      label: observation

@@ -11,7 +11,7 @@ from omop_semantics.schema.generated_models.omop_semantic_registry import (
     RegistryGroup
 )
 if TYPE_CHECKING:
-    from .resolver import SemanticProfileRuntime
+    from .resolver import SemanticProfileRuntime, CompiledTemplate
 
 
 def as_list(x) -> list:
@@ -74,6 +74,64 @@ class Html:
     def _repr_html_(self) -> str:
         return self.raw
     
+def repr_compiled_template(c: "CompiledTemplate") -> str:
+    entity_ids = sorted(c["entity_concept_ids"])
+    value_ids = sorted(c["value_concept_ids"] or [])
+
+    return (
+        f"CompiledTemplate("
+        f"name={c['name']!r}, "
+        f"role={c['role']!r}, "
+        f"cdm_profile={c['cdm_profile'].name}, "
+        f"entity_ids={entity_ids}, "
+        f"value_ids={value_ids}"
+        f")"
+    )
+
+def repr_html_compiled_template(c: "CompiledTemplate") -> Html:
+    rows = [
+        tr(["Name", c["name"]], header=True),
+        tr(["Role", c["role"]]),
+        tr(["CDM Profile", c["cdm_profile"].name]),
+        tr(["CDM Table", c["cdm_profile"].cdm_table]),
+        tr(["Concept Slot", c["cdm_profile"].concept_slot]),
+        tr(["Value Slot", c["cdm_profile"].value_slot or "—"]),
+        tr(["Entity Concept IDs", ", ".join(map(str, sorted(c["entity_concept_ids"])))]),
+        tr(["Value Concept IDs", ", ".join(map(str, sorted(c["value_concept_ids"] or [])))]),
+    ]
+
+    return Html(
+        f"<h4>{h(c['name'])}</h4>"
+        + table(rows)
+    )
+
+
+def render_compiled_templates(compiled: list["CompiledTemplate"]) -> Html:
+    rows = []
+    for c in compiled:
+        rows.append(tr([
+            c["name"],
+            c["role"],
+            c["cdm_profile"].cdm_table,
+            c["cdm_profile"].concept_slot,
+            c["cdm_profile"].value_slot or "",
+            ", ".join(map(str, sorted(c["entity_concept_ids"]))),
+            ", ".join(map(str, sorted(c["value_concept_ids"] or []))),
+        ]))
+
+    return Html(table(
+        rows,
+        header=[
+            "Template",
+            "Role",
+            "CDM Table",
+            "Concept Slot",
+            "Value Slot",
+            "Entity Concept IDs",
+            "Value Concept IDs",
+        ],
+    ))
+
 
 def render_semantic_object(obj: OmopSemanticObject | None) -> Html:
     if obj is None:
@@ -159,9 +217,9 @@ def render_template_row(tpl: OmopTemplate) -> str:
     return tr([
         tpl.name,
         tpl.role,
-        tpl.cdm_table,
-        tpl.concept_slot,
-        tpl.value_slot or "",
+        tpl.entity_concept,
+        tpl.value_concept,
+        tpl.cdm_profile,
         render_semantic_object(tpl.entity_concept),
         render_semantic_object(tpl.value_concept),
     ])
@@ -199,31 +257,6 @@ def render_registry_fragment(fragment: RegistryFragment) -> Html:
 
     return Html("".join(blocks))
 
-def render_compiled_templates(compiled: list[dict]) -> Html:
-    rows = []
-    for c in compiled:
-        rows.append(tr([
-            c["name"],
-            c["role"],
-            c["cdm_table"],
-            c["concept_slot"],
-            c["value_slot"] or "",
-            ", ".join(map(str, sorted(c["entity_concept_ids"]))),
-            ", ".join(map(str, sorted(c["value_concept_ids"] or []))),
-        ]))
-
-    return Html(table(
-        rows,
-        header=[
-            "Template",
-            "Role",
-            "CDM Table",
-            "Concept Slot",
-            "Value Slot",
-            "Entity Concept IDs",
-            "Value Concept IDs",
-        ],
-    ))
 
 def render_profile_groups(profile: "SemanticProfileRuntime") -> Html:
     rows = []
