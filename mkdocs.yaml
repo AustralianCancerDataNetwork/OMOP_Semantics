@@ -51,3 +51,4 @@ nav:
   - Home: index.md
   - Usage: usage.md
   - Registry: registry.md
+  - Value Sets: valuesets.md

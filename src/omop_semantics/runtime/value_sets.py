@@ -11,7 +11,47 @@ from omop_semantics.schema.generated_models.omop_named_sets import (
 
 from .renderers import tr, table, h, Html
 
+"""
+Runtime accessors for OMOP semantic value sets.
+
+This module provides a lightweight, interactive runtime layer over declarative
+OMOP semantic registries defined using LinkML schemas and YAML instance files.
+It exposes semantic enums, groups, and concepts as Python attribute-accessible
+namespaces, with rich ``repr`` and ``_repr_html_`` renderings for notebook
+exploration.
+
+The runtime API is designed for:
+
+- Interactive exploration of available semantic objects in Jupyter
+- Readable rule logic (e.g. ``runtime.genomic.genomic_value_group.genomic_positive``)
+- Debugging and documentation of registry content
+- Safe programmatic access to OMOP concept identifiers
+
+The core abstractions are:
+
+- ``RuntimeEnum``: wraps an ``OmopEnum`` as a label-concept_id namespace
+- ``RuntimeGroup``: wraps an ``OmopGroup`` as a label-concept_id namespace
+- ``RuntimeSemanticUnit``: aggregates enums, groups, and concepts under one unit
+- ``RuntimeValueSet``: groups semantic units into named value sets
+- ``RuntimeValueSets``: top-level registry namespace
+
+This layer intentionally avoids mutability and database concerns and is intended
+as a pure read-only semantic access layer.
+"""
+
 class RuntimeGroup:
+
+    """
+    Runtime wrapper around an ``OmopGroup``.
+
+    Exposes the group's parent concepts as an attribute-accessible namespace,
+    mapping concept labels to OMOP concept IDs. This allows interactive access
+    such as:
+
+        >>> runtime.staging.t_stage_concepts.t3
+        1634376
+
+    """
     def __init__(self, group: OmopGroup):
         self._group = group
         self._by_label = {
@@ -44,9 +84,36 @@ class RuntimeGroup:
 
 class RuntimeEnum:
 
+
+    """
+    Runtime wrapper around an ``OmopEnum``.
+
+    Exposes enum members as a label to concept_id mapping, accessible via
+    attribute access:
+
+        >>> runtime.genomic.genomic_value_group.genomic_positive
+        9191
+
+    Attributes
+    ----------
+    labels : list[str]
+        Sorted list of enum labels.
+    ids : list[int]
+        Sorted list of concept IDs in the enum.
+
+    """
+
     def __init__(self, enum: OmopEnum):
         self._enum = enum
         self._by_label = {m.label: m.concept_id for m in enum.enum_members if m.concept_id and m.label}
+
+    @property
+    def labels(self) -> list[str]:
+        return sorted(self._by_label.keys())
+
+    @property
+    def ids(self) -> list[int]:
+        return sorted(self._by_label.values())
 
     def __getattr__(self, label: str) -> int:
         if label.startswith('_'):
@@ -54,7 +121,7 @@ class RuntimeEnum:
         return self._by_label[label]
     
     def __repr__(self) -> str:
-        labels = ", ".join(sorted(self._by_label.keys()))
+        labels = ", ".join(sorted(self.labels))
         return f"RuntimeEnum({self._enum.name}: [{labels}])"
 
     def _repr_html_(self) -> str:
@@ -67,12 +134,36 @@ class RuntimeEnum:
             + table(rows, header=["Label", "Concept ID"])
         ).raw
     
-
     def __dir__(self):
-        return sorted(set(super().__dir__()) | set(self._by_label.keys()))
+        return sorted(set(super().__dir__()) | set(self.labels))
 
 
 class RuntimeSemanticUnit:
+
+    """
+    Runtime container for a single semantic unit.
+
+    A semantic unit may contain any combination of:
+
+    - Named enums (``RuntimeEnum``)
+    - Named groups (``RuntimeGroup``)
+    - Named concepts (raw ``OmopConcept``)
+
+    This class exposes:
+
+    - Direct access to named enums/groups/concepts via attributes
+    - Direct access to enum/group labels as attributes (flattened lookup)
+    - Rich textual and HTML representations for introspection
+
+    Example
+    -------
+        >>> runtime.genomic.genomic_value_group.genomic_positive
+        9191
+
+        >>> runtime.staging.t_stage_concepts.t4
+        1634654
+    """
+
     def __init__(self, unit: CDMSemanticUnits):
         self._unit = unit
         self.enums = {e.name: RuntimeEnum(e) for e in (unit.named_enumerators or []) if e and e.name}
@@ -137,6 +228,22 @@ class RuntimeSemanticUnit:
 
 @dataclass(frozen=True)
 class RuntimeValueSet:
+
+    """
+    Runtime representation of a named value set.
+
+    A value set groups multiple semantic units under a single namespace or 
+    conceptual module - no added functionality just for ease of access and use
+
+    (e.g. ``genomic``, ``staging``, ``modifiers``).
+
+    Semantic units can be accessed via attribute lookup:
+
+        >>> runtime.genomic.genomic_value_group
+        RuntimeSemanticUnit(...)
+
+    """
+
     name: str
     members: dict[str, RuntimeSemanticUnit]
 
@@ -168,8 +275,22 @@ class RuntimeValueSet:
         return sorted(set(super().__dir__()) | set(self.members.keys()))
     
 
-
 class RuntimeValueSets:
+
+    """
+    Top-level runtime namespace for all compiled value sets.
+
+    This is the primary entry point for interactive access to the semantic
+    registry:
+
+        >>> runtime.genomic
+        >>> runtime.staging
+        >>> runtime.nlp
+
+    Each attribute corresponds to a named ``RuntimeValueSet``.
+
+    """
+
     def __init__(self, valuesets: dict[str, RuntimeValueSet]):
         self._valuesets = valuesets
 
@@ -199,6 +320,26 @@ class RuntimeValueSets:
     
   
 def compile_valuesets(defs: CDMValueSets) -> RuntimeValueSets:
+
+    """
+    Compile declarative CDM value set definitions into runtime objects.
+
+    Parameters
+    ----------
+    defs : CDMValueSets
+        Parsed value set definitions after interpolation.
+
+    Returns
+    -------
+    RuntimeValueSets
+        Runtime-accessible registry of all value sets and semantic units.
+
+    Notes
+    -----
+    This step materialises the interactive runtime namespace used in notebooks
+    and rule logic. It is intentionally pure and read-only.
+    """
+
     compiled: dict[str, RuntimeValueSet] = {}
 
     for vs in defs.valuesets:
@@ -217,8 +358,22 @@ def compile_valuesets(defs: CDMValueSets) -> RuntimeValueSets:
 
 def index_semantic_units(units: CDMSemanticUnits) -> dict[str, OmopSemanticObject]:
     """
-    Flatten CDMSemanticUnits into name → OmopSemanticObject mapping.
+    Build a name → semantic object index from a ``CDMSemanticUnits`` container.
+
+    Parameters
+    ----------
+    units : CDMSemanticUnits
+        Declarative semantic unit registry.
+
+    Returns
+    -------
+    dict[str, OmopSemanticObject]
+        Mapping from semantic unit name to underlying OMOP semantic object
+        (enum, group, or concept).
+
+    This index is used during interpolation of value set definitions.
     """
+
     index: dict[str, OmopSemanticObject] = {}
 
     for e in units.named_enumerators or []:
@@ -239,6 +394,33 @@ def interpolate_valuesets(
     raw: dict,
     semantic_index: dict[str, OmopSemanticObject],
 ) -> CDMValueSets:
+    """
+    Interpolate raw value set definitions by resolving string references.
+
+    This replaces string references in ``valuesets.yaml`` with concrete
+    ``CDMSemanticUnits`` instances wrapping the corresponding OMOP semantic
+    objects.
+
+    Parameters
+    ----------
+    raw : dict
+        Raw parsed YAML dictionary from ``valuesets.yaml``.
+    semantic_index : dict[str, OmopSemanticObject]
+        Lookup table mapping semantic unit names to OMOP semantic objects.
+
+    Returns
+    -------
+    CDMValueSets
+        Fully resolved value set definitions suitable for compilation into
+        runtime objects.
+
+    Raises
+    ------
+    KeyError
+        If a referenced semantic unit name does not exist.
+    TypeError
+        If an unsupported semantic object type is encountered.
+    """
     valuesets = []
 
     for vs in raw["valuesets"]:
