@@ -11,6 +11,37 @@ from omop_semantics.schema.generated_models.omop_named_sets import (
 
 from .renderers import tr, table, h, Html
 
+class RuntimeGroup:
+    def __init__(self, group: OmopGroup):
+        self._group = group
+        self._by_label = {
+            c.label: c.concept_id
+            for c in (group.parent_concepts or [])
+            if c and c.label and c.concept_id
+        }
+
+    def __getattr__(self, label: str) -> int:
+        if label.startswith("_"):
+            raise AttributeError(label)
+        return self._by_label[label]
+
+    def __repr__(self) -> str:
+        labels = ", ".join(sorted(self._by_label.keys()))
+        return f"RuntimeGroup({self._group.name}: [{labels}])"
+
+    def _repr_html_(self) -> str:
+        rows = [
+            tr([label, cid])
+            for label, cid in sorted(self._by_label.items())
+        ]
+        return Html(
+            f"<h4>Group: {h(self._group.name)}</h4>"
+            + table(rows, header=["Label", "Concept ID"])
+        ).raw
+
+    def __dir__(self):
+        return sorted(set(super().__dir__()) | set(self._by_label.keys()))
+
 class RuntimeEnum:
 
     def __init__(self, enum: OmopEnum):
@@ -45,7 +76,7 @@ class RuntimeSemanticUnit:
     def __init__(self, unit: CDMSemanticUnits):
         self._unit = unit
         self.enums = {e.name: RuntimeEnum(e) for e in (unit.named_enumerators or []) if e and e.name}
-        self.groups = {g.name: g for g in (unit.named_groups or []) if g and g.name}
+        self.groups = {g.name: RuntimeGroup(g) for g in (unit.named_groups or []) if g and g.name}        
         self.concepts = {c.name: c for c in (unit.named_concepts or []) if c and c.name}
 
 
@@ -57,11 +88,12 @@ class RuntimeSemanticUnit:
         if name in self.concepts:
             return self.concepts[name]
 
-        for enum in self.enums.values():
-            try:
-                return getattr(enum, name)
-            except AttributeError:
-                pass
+        for labelled_item in [self.enums, self.groups]:
+            for value in labelled_item.values():
+                try:
+                    return getattr(value, name)
+                except AttributeError:
+                    pass
 
         raise AttributeError(name)
 
@@ -82,8 +114,8 @@ class RuntimeSemanticUnit:
         for name in sorted(self.enums):
             rows.append(tr(["Enum", name, ", ".join(self.enums[name]._by_label.keys())]))
         for name, g in sorted(self.groups.items()):
-            if g.parent_concepts:
-                rows.append(tr(["Group", name, ", ".join(c.label for c in g.parent_concepts if c and c.label)]))
+            if g._group.parent_concepts:
+                rows.append(tr(["Group", name, ", ".join(c.label for c in g._group.parent_concepts if c and c.label)]))
         for name in sorted(self.concepts):
             rows.append(tr(["Concept", name, ""]))
 
@@ -92,15 +124,16 @@ class RuntimeSemanticUnit:
             + table(rows, header=["Type", "Name", "Members"])
         ).raw
     
-
     def __dir__(self):
         names = set(self.enums) | set(self.groups) | set(self.concepts)
-        # also expose enum labels directly
+
         for enum in self.enums.values():
             names |= set(enum._by_label.keys())
+
+        for group in self.groups.values():
+            names |= set(group._by_label.keys())
+
         return sorted(set(super().__dir__()) | names)
-
-
 
 @dataclass(frozen=True)
 class RuntimeValueSet:
