@@ -221,14 +221,14 @@ def interpolate_valuesets(
             named_groups = []
             named_concepts = []
 
-            if obj.class_uri == "OmopEnum":
+            if isinstance(obj, OmopEnum):
                 named_enums = [obj]
-            elif obj.class_uri == "OmopGroup":
+            elif isinstance(obj, OmopGroup):
                 named_groups = [obj]
-            elif obj.class_uri == "OmopConcept":
+            elif isinstance(obj, OmopConcept):
                 named_concepts = [obj]
             else:
-                raise TypeError(f"Unsupported semantic unit type: {obj.class_uri}")
+                raise TypeError(f"Unsupported semantic unit type: {type(obj)}")
 
             resolved_members.append(
                 CDMSemanticUnits(
