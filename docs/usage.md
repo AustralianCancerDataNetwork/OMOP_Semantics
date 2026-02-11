@@ -9,11 +9,14 @@ Defining in a structured way what conventions look like so that it is machine in
 ```python
 
 from pathlib import Path
-from omop_semantics.runtime import OmopSemanticEngine
+from omop_semantics.runtime import OmopSemanticEngine, RegistryFragment
+from omop_semantics.runtime.instance_loader import load_registry_fragment, load_profiles, load_symbol_module
+from linkml_runtime.loaders import yaml_loader
+from omop_semantics import SCHEMA_DIR, INSTANCE_DIR
 
-instance_base = Path('schema/instances')
-profile_base = Path('schema/configuration/profiles')
 
+instance_base = INSTANCE_DIR
+profile_base = SCHEMA_DIR / "profiles"
 
 engine = OmopSemanticEngine.from_yaml_paths(
     registry_paths=[
@@ -53,6 +56,100 @@ profiles:
 ```
 
 *Example: Run-time resolution*
+
+Note that we do not want to be either
+
+1. redefining full classes for simple data structures that conform exactly to the defined profiles, or
+2. having to repeat full profiles in registry fragments. 
+
+Instead, we have a pre-processing step that merges instance files with profiles to create a "registry fragment" that can be used to initialise the resolver
+
+```python
+
+profiles = load_profiles(instance_base / "profiles.yaml")
+
+registry_dict = merge_instance_files(
+    paths = [instance_base / "demographic.yaml"],
+    profiles = profiles
+)
+
+```
+On initial load, we just get a reference to the template as a string, which does not conform to the template structure in its own right...
+
+```python
+
+yaml_loader.load_as_dict(f'{instance_base / "demographic.yaml"}')['groups'][0]['registry_members'][0]
+
+# {'name': 'Country of birth',
+#  'role': 'demographic',
+#  'entity_concept': {'name': 'Country of Birth',
+#   'class_uri': 'OmopGroup',
+#   'parent_concepts': [{'concept_id': 4155450, 'label': 'Country of birth'}]},
+#  'cdm_profile': 'observation_simple'}
+
+```
+
+after we apply the profiles, we get a fully conformed registry fragment with all the relevant information from the profile
+
+```python
+
+profiles['observation_simple']
+
+# OmopCdmProfile(name='observation_simple', cdm_table='observation', concept_slot='observation_concept_id', value_slot=None)
+
+```
+
+this structure can now be used to properly instantiate the template classes and then fully used for rendering, validation, etc. downstream
+
+```python
+
+registry_dict['groups'][0]['registry_members'][0]
+
+{'name': 'Country of birth',
+ 'role': 'demographic',
+ 'entity_concept': {'name': 'Country of Birth',
+  'class_uri': 'OmopGroup',
+  'parent_concepts': [{'concept_id': 4155450, 'label': 'Country of birth'}]},
+ 'cdm_profile': {'name': 'observation_simple',
+  'cdm_table': 'observation',
+  'concept_slot': 'observation_concept_id',
+  'value_slot': None}}
+
+```
+
+other more complex modules can be created as full linkml subschemas and then loaded directly instead
+
+```python
+
+staging_symbols = load_symbol_module(profile_base / 'omop_staging.yaml')
+modifier_symbols = load_symbol_module(profile_base / 'omop_modifiers.yaml')
+
+staging_symbols['TStageConcepts']
+
+# {'is_a': 'RegistryGroup',
+#  'name': 'TStageConcepts',
+#  'role': 'staging',
+#  'registry_members': ['T0', 'T1', 'T2', 'T3', 'T4', 'Ta', 'Tis', 'TX']}
+
+staging_symbols['T0']
+
+# {'class_uri': 'OmopGroup',
+#  'parent_concepts': [{'concept_id': 1634213, 'label': 'T0'}],
+#  'role': 'staging'}
+
+registry_fragment = yaml_loader.load(
+    registry_dict,
+    target_class=RegistryFragment
+)
+
+engine = OmopSemanticEngine(
+    registry_fragment=registry_fragment,
+    profile_objects=[staging_symbols, modifier_symbols]   # or merge with profile symbols too
+)
+
+```
+
+Now that our engine is fully instantiated...
 
 ```python
 tpl = engine.registry_runtime.get_runtime("Country of birth")
