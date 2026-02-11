@@ -5,12 +5,12 @@ from .resolver import (
     OmopTemplateRuntime,
     OmopRegistryRuntime,
     OmopCdmProfile,
-     RegistryFragment,
-     OmopTemplate,
-     RuntimeTemplate,
-     OmopSemanticEngine,
-     OmopSemanticObject,
-     SemanticProfileRuntime
+    RegistryFragment,
+    OmopTemplate,
+    RuntimeTemplate,
+    OmopSemanticEngine,
+    OmopSemanticObject,
+    SemanticProfileRuntime
 )
 from typing import TYPE_CHECKING
 
