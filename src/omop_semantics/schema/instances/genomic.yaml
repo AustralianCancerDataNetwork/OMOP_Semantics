@@ -1,63 +1,55 @@
-id: https://example.org/omop_semantics
-name: genomic
-description: OMOP concepts for semantic role 'genomic'
-GenomicMeasurements_Group:
-  class_uri: ConceptGroup
-  name: GenomicMeasurements
-  role: genomic
-  members:
-    - GenomicMeasurements_alk
-    - GenomicMeasurements_egfr
-    - GenomicMeasurements_ros1
-    - GenomicMeasurements_braf
-    - GenomicMeasurements_ret
-  notes: Concept group derived from enum GenomicMeasurements
-GenomicMeasurements_alk:
-  class_uri: OmopConcept
-  concept_id: 35963763
-  label: Alk
-  role: genomic
-GenomicMeasurements_egfr:
-  class_uri: OmopConcept
-  concept_id: 35962802
-  label: Egfr
-  role: genomic
-GenomicMeasurements_ros1:
-  class_uri: OmopConcept
-  concept_id: 35957723
-  label: Ros1
-  role: genomic
-GenomicMeasurements_braf:
-  class_uri: OmopConcept
-  concept_id: 35948173
-  label: Braf
-  role: genomic
-GenomicMeasurements_ret:
-  class_uri: OmopConcept
-  concept_id: 35952943
-  label: Ret
-  role: genomic
-GenomicValue_Group:
-  class_uri: ConceptGroup
-  name: GenomicValue
-  role: genomic
-  members:
-    - GenomicValue_positive
-    - GenomicValue_negative
-    - GenomicValue_equivocal
-  notes: Concept group derived from enum GenomicValue
-GenomicValue_positive:
-  class_uri: OmopConcept
-  concept_id: 9191
-  label: Positive
-  role: genomic
-GenomicValue_negative:
-  class_uri: OmopConcept
-  concept_id: 9189
-  label: Negative
-  role: genomic
-GenomicValue_equivocal:
-  class_uri: OmopConcept
-  concept_id: 4172976
-  label: Equivocal
-  role: genomic
+groups:
+  - name: GenomicMeasurements
+    role: genomic
+    registry_members:
+      - name: ALK
+        role: genomic
+        entity_concept:
+          name: ALK
+          class_uri: OmopConcept
+          parent_concepts:
+          - concept_id: 35963763
+            label: ALK (ALK receptor tyrosine kinase) gene variant measurement
+        value_concept:
+          name: genomic_value_group
+        cdm_profile: observation_coded
+      - name: EGFR
+        role: genomic
+        entity_concept:
+          name: EGFR
+          class_uri: OmopConcept
+          concept_id: 35962802
+          label: EGFR (epidermal growth factor receptor) gene variant measurement
+        value_concept:
+          name: genomic_value_group
+        cdm_profile: observation_coded
+      - name: ROS1
+        role: genomic
+        entity_concept:
+          name: ROS1
+          class_uri: OmopConcept
+          concept_id: 35957723
+          label: ROS1 (ROS proto-oncogene 1, receptor tyrosine kinase) gene variant measurement
+        value_concept:
+          name: genomic_value_group
+        cdm_profile: observation_coded
+      - name: BRAF
+        role: genomic
+        entity_concept:
+          name: BRAF
+          class_uri: OmopConcept
+          concept_id: 35948173
+          label: BRAF (B-Raf proto-oncogene, serine/threonine kinase) gene variant measurement
+        value_concept:
+          name: genomic_value_group
+        cdm_profile: observation_coded
+      - name: RET
+        role: genomic
+        entity_concept:
+          name: RET
+          class_uri: OmopConcept
+          concept_id: 35952943
+          label: RET (ret proto-oncogene) gene variant measurement
+        value_concept:
+          name: genomic_value_group
+        cdm_profile: observation_coded

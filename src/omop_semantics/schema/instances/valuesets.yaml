@@ -1,0 +1,42 @@
+valuesets:
+  - name: genomic
+    members:
+      - genomic_value_group
+      - genomic_mapped_types
+  - name: modifiers
+    members:
+      - modifier_fields
+      - modifier_tables
+      - valid_condition_modifiers
+      - valid_treatment_modifier_values
+  - name: episodes
+    members: 
+      - treatment_episode_types
+      - disease_episode_types
+      - episode_types
+  - name: modifier_values
+    members: 
+      - treatment_intent
+      - treatment_modality
+  - name: nlp
+    members:
+      - document_type
+      - document_encoding
+      - document_language
+  - name: cancer_procedures
+    members: 
+      - cancer_consult_types
+      - encounter_provider_specialty
+      - cancer_procedure_types
+      - procedures_by_location
+  - name: height_weight
+    members:
+      - weight_concepts
+      - weight_units
+  - name: staging
+    members:
+      - t_stage_concepts
+      - n_stage_concepts
+      - m_stage_concepts
+      - group_stage_concepts
+      - stage_edition

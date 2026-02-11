@@ -1,0 +1,302 @@
+named_enumerators:
+  - name: genomic_value_group
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 9191
+        label: genomic_positive
+      - concept_id: 9189
+        label: genomic_negative
+      - concept_id: 4172976
+        label: genomic_equivocal
+  - name: genomic_mapped_types
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 35963763
+        label: alk
+      - concept_id: 35962802
+        label: egfr
+      - concept_id: 35957723
+        label: ros1
+      - concept_id: 35948173
+        label: braf
+      - concept_id: 35952943
+        label: ret
+  - name: valid_condition_modifiers
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4139794
+        label: tumor_size
+      - concept_id: 35918306
+        label: laterality
+      - concept_id: 35918328
+        label: grade
+  - name: treatment_intent
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4161587
+        label: neoadjuvant
+      - concept_id: 4191637
+        label: adjuvant
+      - concept_id: 4162591
+        label: curative
+      - concept_id: 4179711
+        label: palliative
+  - name: modifier_fields
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 1147127
+        label: condition_occurrence_id
+      - concept_id: 1147707
+        label: drug_exposure_id
+      - concept_id: 1147082
+        label: procedure_occurrence_id
+      - concept_id: 756290
+        label: episode_id
+  - name: modifier_tables
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 1147339
+        label: drug_exposure
+      - concept_id: 35225440
+        label: episode
+      - concept_id: 1147304
+        label: observation
+  - name: treatment_episode_types
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 32531
+        label: treatment_regimen
+      - concept_id: 32532
+        label: treatment_cycle
+      - concept_id: 32939
+        label: cancer_surgery
+      - concept_id: 32940
+        label: radiotherapy
+  - name: treatment_modality
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 35803401
+        label: chemotherapy
+      - concept_id: 35803411
+        label: radiotherapy
+  - name: disease_episode_types
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 32533
+        label: episode_of_care
+      - concept_id: 32528
+        label: confined
+      - concept_id: 32677
+        label: invasive
+      - concept_id: 32944
+        label: metastatic
+      - concept_id: 32948
+        label: stable_disease
+      - concept_id: 32949
+        label: disease_progression
+      - concept_id: 32947
+        label: partial_response
+      - concept_id: 32945
+        label: complete_response
+  - name: episode_types
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 32544
+        label: ehr_defined
+      - concept_id: 32545
+        label: ehr_derived
+      - concept_id: 32838
+        label: ehr_prescription
+      - concept_id: 32837
+        label: ehr_planned_dispensing
+      - concept_id: 32827
+        label: ehr_encounter_record
+      - concept_id: 32818
+        label: ehr_admin_record
+      - concept_id: 32834
+        label: ehr_outpatient_note
+      - concept_id: 42539609
+        label: rt_care_plan
+      - concept_id: 32840
+        label: ehr_problem_list
+  - name: document_type
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 706266
+        label: oncology_note
+  - name: document_encoding
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 32678
+        label: UTF8
+  - name: document_language
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4180186
+        label: english
+  - name: cancer_consult_types
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4147722
+        label: medonc
+      - concept_id: 4139715
+        label: clinonc
+      - concept_id: 4084352
+        label: oncology_referral
+      - concept_id: 4127745
+        label: pall_care_referral
+  - name: condition_concepts
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 32906
+        label: resolved_condition
+      - concept_id: 32893
+        label: confirmed_diagnosis
+  - name: encounter_provider_specialty
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 35621987
+        label: radonc
+      - concept_id: 4151173
+        label: medonc
+      - concept_id: 4202942
+        label: pall_care
+      - concept_id: 4220638
+        label: dietetitian
+      - concept_id: 4213188
+        label: occupational_therapist
+      - concept_id: 4010130
+        label: speech_therapist
+      - concept_id: 4221826
+        label: haematologist
+      - concept_id: 4009808
+        label: geneticist
+      - concept_id: 17036
+        label: gynaecologist
+      - concept_id: 4143746
+        label: radiation_therapist
+      - concept_id: 4010577
+        label: medical_doctor
+  - name: weight_concepts
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4099154
+        label: weight
+      - concept_id: 607590
+        label: height
+      - concept_id: 4201235
+        label: bsa
+      - concept_id: 4086522
+        label: weight_change  
+  - name: weight_units
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 8739
+        label: lb
+      - concept_id: 4041099
+        label: pct
+      - concept_id: 9529
+        label: kg
+      - concept_id: 8582
+        label: cm
+      - concept_id: 9327
+        label: inch
+      - concept_id: 8617
+        label: m2
+named_groups:
+  - name: valid_treatment_modifier_values
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 4036397
+        label: rt_parameter
+      - concept_id: 4124464
+        label: rt_projection
+      - concept_id: 4240671
+        label: rt_site
+  - name: cancer_procedure_types
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 4301351
+        label: surgical_procedure
+      - concept_id: 1340204
+        label: historical_procedure
+      - concept_id: 1242725
+        label: rt_procedure
+      - concept_id: 4161415
+        label: rn_procedure
+      - concept_id: 4141448
+        label: rt_externalbeam
+      - concept_id: 37163499
+        label: rt_course
+  - name: procedures_by_location
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 4040549
+        label: procedure_on_lung
+      - concept_id: 4301352
+        label: operation_on_lung
+  - name: t_stage_concepts
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 1634213
+        label: t0
+      - concept_id: 1635564
+        label: t1
+      - concept_id: 1635562
+        label: t2
+      - concept_id: 1634376
+        label: t3
+      - concept_id: 1634654
+        label: t4
+      - concept_id: 1635114
+        label: ta
+      - concept_id: 1635682
+        label: tx
+      - concept_id: 1634530
+        label: tis
+  - name: n_stage_concepts
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 1633440
+        label: n0
+      - concept_id: 1634434
+        label: n1
+      - concept_id: 1634119
+        label: n2
+      - concept_id: 1635320
+        label: n3
+      - concept_id: 1635445
+        label: n4
+      - concept_id: 1633885
+        label: nx
+  - name: m_stage_concepts
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 1635624
+        label: m0
+      - concept_id: 1635142
+        label: m1
+      - concept_id: 1633547
+        label: mx
+  - name: group_stage_concepts
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 1633754
+        label: stage0
+      - concept_id: 1633306
+        label: stageI
+      - concept_id: 1634209
+        label: stageII
+      - concept_id: 1633650
+        label: stageIII
+      - concept_id: 1633308
+        label: stageIV
+  - name: stage_edition
+    class_uri: OmopGroup
+    parent_concepts:
+      - concept_id: 1634647
+        label: _6th
+      - concept_id: 1633496
+        label: _7th
+      - concept_id: 1634449
+        label: _8th

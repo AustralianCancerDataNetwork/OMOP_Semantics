@@ -222,6 +222,38 @@ class OmopRegistryRuntime:
         self._compiled_by_name: dict[str, CompiledTemplate] | None = None
         self._compiled_by_role: dict[str, list[CompiledTemplate]] | None = None
 
+    @property
+    def roles(self) -> Set[str]:
+        """
+        Get the set of all semantic roles defined in the registry.
+
+        Returns
+        -------
+        Set[str]
+            Unique set of semantic roles (e.g. 'demographic', 'staging') present in the registry.
+        """
+        roles: Set[str] = set()
+        for group in self.fragment.groups or []:
+            for tpl in group.registry_members or []:
+                roles.add(tpl.role)
+        return roles
+    
+    @property
+    def template_names(self) -> Set[str]:
+        """
+        Get the set of all template names defined in the registry.
+
+        Returns
+        -------
+        Set[str]
+            Unique set of template names present in the registry.
+        """
+        names: Set[str] = set()
+        for group in self.fragment.groups or []:
+            for tpl in group.registry_members or []:
+                names.add(tpl.name)
+        return names
+
 
     def iter_templates(self, role: str | None = None):
         """
@@ -519,6 +551,7 @@ class SemanticProfileRuntime:
         """
         return self.objects[name]
     
+    
     def list_groups(self) -> dict[str, dict]:
         """
         List all RegistryGroup objects defined in the profiles.
@@ -534,6 +567,35 @@ class SemanticProfileRuntime:
             if obj.get("class_uri") == "RegistryGroup"
         }
     
+    def list_templates(self) -> dict[str, dict]:
+        """
+        List all OmopTemplate objects defined in the profiles.
+
+        Returns
+        -------
+        dict[str, dict]
+            Mapping of template name to raw OmopTemplate profile dictionaries.
+        """
+        return {
+            name: obj
+            for name, obj in self.objects.items()
+            if obj.get("class_uri") == "OmopTemplate"
+        }
+    
+    def list_semantic_objects(self) -> dict[str, dict]:
+        """
+        List all semantic objects (OmopGroup, OmopConcept, OmopEnum) defined in the profiles.
+
+        Returns
+        -------
+        dict[str, dict]
+            Mapping of object name to raw profile dictionaries for semantic objects.
+        """
+        return {
+            name: obj
+            for name, obj in self.objects.items()
+            if obj.get("class_uri") in {"OmopGroup", "OmopConcept", "OmopEnum"}
+        }
  
     def explain(self, name: str) -> str:
         """
@@ -594,7 +656,6 @@ class SemanticProfileRuntime:
         """
         blocks: list[str] = []
 
-        # ---- Registry Groups ----
         group_rows = [
             tr([
                 name,
@@ -602,8 +663,7 @@ class SemanticProfileRuntime:
                 ", ".join(as_list(obj.get("members"))),
                 obj.get("notes", ""),
             ])
-            for name, obj in self.objects.items()
-            if obj.get("class_uri") == "RegistryGroup"
+            for name, obj in self.list_groups().items()
         ]
 
         if group_rows:
@@ -623,8 +683,7 @@ class SemanticProfileRuntime:
                 render_profile_object(self._resolve_profile_ref(obj.get("entity_concept"))),
                 render_profile_object(self._resolve_profile_ref(obj.get("value_concept"))),
             ])
-            for name, obj in self.objects.items()
-            if obj.get("class_uri") == "OmopTemplate"
+            for name, obj in self.list_templates().items()
         ]
 
         if template_rows:
@@ -632,13 +691,7 @@ class SemanticProfileRuntime:
                 "<h3>Templates</h3>"
                 + table(
                     template_rows,
-                    header=[
-                        "Name",
-                        "Role",
-                        "CDM Profile",
-                        "Entity Concept",
-                        "Value Concept",
-                    ],
+                    header=["Name", "Role", "CDM Profile", "Entity Concept", "Value Concept"],
                 )
             )
 
@@ -649,8 +702,7 @@ class SemanticProfileRuntime:
                 render_profile_object(obj),
                 obj.get("notes", ""),
             ])
-            for name, obj in self.objects.items()
-            if obj.get("class_uri") in {"OmopGroup", "OmopConcept", "OmopEnum"}
+            for name, obj in self.list_semantic_objects().items()
         ]
 
         if semantic_rows:
