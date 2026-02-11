@@ -7,25 +7,12 @@ from omop_semantics.schema.generated_models.omop_semantic_registry import (
     OmopTemplate,
     OmopCdmProfile
 )
-from linkml_runtime.loaders import yaml_loader
 from pathlib import Path
+from dataclasses import dataclass
 from typing import Iterable, TypedDict, Optional, Set
 from .renderers import render_semantic_object, render_profile_object, Html, tr, h, table, as_list, render_compiled_templates
-from .instance_loader import load_registry_fragment, merge_instance_files, merge_registry_fragments, load_profiles
+from .instance_loader import load_registry_fragment, merge_registry_fragments, load_symbol_module
 
-def load_symbol_module(path: Path) -> dict[str, dict]:
-    raw = yaml_loader.load_as_dict(str(path))
-
-    if not isinstance(raw, dict):
-        raise TypeError(f"Expected mapping at top level in {path}, got {type(raw)}")
-
-    # Filter out schema-level keys
-    skip = {"id", "name", "description", "imports", "prefixes", "default_prefix", "default_range"}
-    
-    return {
-        k: v for k, v in raw.items()
-        if k not in skip and isinstance(v, dict)
-    }
 
 class CompiledTemplate(TypedDict):
     """
@@ -177,6 +164,31 @@ class OmopTemplateRuntime:
             "value_concept_ids": value_ids,
         }
 
+@dataclass(frozen=True)
+class RuntimeTemplate:
+    """
+    Attribute-based runtime view over a compiled OMOP template.
+
+    This is a thin wrapper around CompiledTemplate to provide ergonomic
+    access in ETL pipelines and execution code.
+    """
+    name: str
+    role: str
+    cdm_profile: OmopCdmProfile
+    entity_concept_ids: Set[int]
+    value_concept_ids: Optional[Set[int]]
+
+    @classmethod
+    def from_compiled(cls, c: CompiledTemplate) -> "RuntimeTemplate":
+        return cls(
+            name=c["name"],
+            role=c["role"],
+            cdm_profile=c["cdm_profile"],
+            entity_concept_ids=c["entity_concept_ids"],
+            value_concept_ids=c["value_concept_ids"],
+        )
+
+
 class OmopRegistryRuntime:
     """
     Runtime interface over a registry of OMOP semantic templates.
@@ -274,6 +286,22 @@ class OmopRegistryRuntime:
         if self._compiled_by_name is None:
             raise RuntimeError("No compiled templates available")
         return self._compiled_by_name[name]
+    
+    def get_runtime(self, name: str) -> RuntimeTemplate:
+        c = self.get(name)
+        return RuntimeTemplate.from_compiled(c)
+
+    def by_role_runtime(self, role: str) -> list[RuntimeTemplate]:
+        return [RuntimeTemplate.from_compiled(c) for c in self.by_role(role)]
+
+    def allows_concept(self, template_name: str, concept_id: int) -> bool:
+        tpl = self.get(template_name)
+        return concept_id in tpl["entity_concept_ids"]
+
+    def allows_value(self, template_name: str, concept_id: int) -> bool:
+        tpl = self.get(template_name)
+        values = tpl["value_concept_ids"]
+        return values is not None and concept_id in values
 
     def by_role(self, role: str) -> list[CompiledTemplate]:
         """

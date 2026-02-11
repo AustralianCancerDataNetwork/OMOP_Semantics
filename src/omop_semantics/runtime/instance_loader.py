@@ -89,29 +89,16 @@ def merge_registry_fragments(fragments: Sequence[RegistryFragment]) -> RegistryF
 
     return RegistryFragment(groups=groups)
 
+def load_symbol_module(path: Path) -> dict[str, dict]:
+    raw = yaml_loader.load_as_dict(str(path))
 
+    if not isinstance(raw, dict):
+        raise TypeError(f"Expected mapping at top level in {path}, got {type(raw)}")
 
-
-# def load_profile_objects(path: Path) -> dict[str, dict]:
-#     raw = yaml_loader.load_as_dict(str(path))
-
-#     if not isinstance(raw, dict):
-#         raise TypeError(f"Expected mapping at top level in {path}, got {type(raw)}")
-
-#     profiles = raw.get("profiles")
-#     if not isinstance(profiles, list):
-#         raise TypeError(f"Expected 'profiles' list in {path}, got {type(profiles)}")
+    # Filter out schema-level keys
+    skip = {"id", "name", "description", "imports", "prefixes", "default_prefix", "default_range"}
     
-#     out: dict[str, dict] = {}
-
-#     for obj in profiles:
-#         if not isinstance(obj, dict):
-#             continue
-
-#         name = obj.get("name")
-#         if not isinstance(name, str):
-#             raise ValueError(f"Profile missing valid 'name' in {path}: {obj}")
-
-#         out[name] = obj
-
-#     return out
+    return {
+        k: v for k, v in raw.items()
+        if k not in skip and isinstance(v, dict)
+    }
