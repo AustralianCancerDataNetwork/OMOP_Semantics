@@ -60,6 +60,28 @@ class RuntimeGroup:
             if c and c.label and c.concept_id
         }
 
+    @property
+    def is_singleton(self) -> bool:
+        return len(self._by_label) == 1
+    
+    @property
+    def value(self) -> int:
+        """
+        Return the sole concept_id if this group has exactly one parent.
+        """
+        if not self.is_singleton:
+            raise AttributeError(
+                f"Group '{self._group.name}' has multiple parent concepts"
+            )
+        return next(iter(self._by_label.values()))
+    
+
+    def __int__(self) -> int:
+        """
+        Allow int(runtime.group) for singleton groups.
+        """
+        return self.value
+    
     def __getattr__(self, label: str) -> int:
         if label.startswith("_"):
             raise AttributeError(label)
@@ -175,7 +197,10 @@ class RuntimeSemanticUnit:
         if name in self.enums:
             return self.enums[name]
         if name in self.groups:
-            return self.groups[name]
+            g = self.groups[name]
+            if g.is_singleton:
+                return g.value
+            return g
         if name in self.concepts:
             return self.concepts[name]
 

@@ -306,4 +306,4 @@ named_groups:
     class_uri: OmopGroup
     parent_concepts:
       - concept_id: 36769180
-        label: Metastasis
+        label: metastasis

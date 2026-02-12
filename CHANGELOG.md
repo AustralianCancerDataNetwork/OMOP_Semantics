@@ -9,3 +9,6 @@
 
 # 0.1.3
 - added missed mets concepts
+
+# 0.1.4
+- auto-collapse singleton parents for groups
