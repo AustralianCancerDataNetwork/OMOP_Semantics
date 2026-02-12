@@ -17,10 +17,14 @@ valuesets:
       - treatment_intent
       - treatment_modality
       - treatment_modifier_values
+  - name: condition_concepts
+    members:
+      - condition_status
   - name: condition_modifiers
     members: 
       - condition_modifier_values
       - tumor_grade
+      - numeric_condition_modifiers
   - name: nlp
     members:
       - document_type
