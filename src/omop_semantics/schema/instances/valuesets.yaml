@@ -7,18 +7,20 @@ valuesets:
     members:
       - modifier_fields
       - modifier_tables
-      - valid_condition_modifiers
-      - valid_treatment_modifier_values
   - name: episodes
     members: 
       - treatment_episode_types
       - disease_episode_types
       - episode_types
-  - name: modifier_values
+  - name: treatment_modifiers
     members: 
       - treatment_intent
       - treatment_modality
-      - metastatic_disease
+      - treatment_modifier_values
+  - name: condition_modifiers
+    members: 
+      - condition_modifier_values
+      - tumor_grade
   - name: nlp
     members:
       - document_type

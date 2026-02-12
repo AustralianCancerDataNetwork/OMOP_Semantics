@@ -12,3 +12,6 @@
 
 # 0.1.4
 - auto-collapse singleton parents for groups
+
+# 0.1.5 
+- fixing grade concepts
