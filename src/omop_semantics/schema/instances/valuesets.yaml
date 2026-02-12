@@ -47,3 +47,6 @@ valuesets:
       - m_stage_concepts
       - group_stage_concepts
       - stage_edition
+  - name: demography
+    members:
+      - demography_concepts

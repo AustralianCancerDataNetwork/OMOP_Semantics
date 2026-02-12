@@ -8,6 +8,15 @@ named_enumerators:
         label: genomic_negative
       - concept_id: 4172976
         label: genomic_equivocal
+  - name: demography_concepts
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4155450
+        label: country_of_birth
+      - concept_id: 4052785
+        label: language_spoken
+      - concept_id: 4083591
+        label: post_code
   - name: genomic_mapped_types
     class_uri: OmopEnum
     enum_members:
@@ -154,7 +163,7 @@ named_enumerators:
         label: oncology_referral
       - concept_id: 4127745
         label: pall_care_referral
-  - name: condition_concepts
+  - name: condition_status
     class_uri: OmopEnum
     enum_members:
       - concept_id: 32906
