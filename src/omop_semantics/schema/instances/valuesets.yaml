@@ -18,6 +18,7 @@ valuesets:
     members: 
       - treatment_intent
       - treatment_modality
+      - metastatic_disease
   - name: nlp
     members:
       - document_type

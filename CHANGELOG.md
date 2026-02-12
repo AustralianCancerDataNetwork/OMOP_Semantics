@@ -6,3 +6,6 @@
 
 # 0.1.2
 - with tab completion for groups
+
+# 0.1.3
+- added missed mets concepts
