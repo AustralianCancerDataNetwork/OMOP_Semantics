@@ -8,7 +8,7 @@ from omop_semantics.schema.generated_models.omop_named_sets import (
     CDMValueSet,
     CDMValueSets
 )
-
+from abc import ABC
 from .renderers import tr, table, h, Html
 
 """
@@ -39,8 +39,48 @@ This layer intentionally avoids mutability and database concerns and is intended
 as a pure read-only semantic access layer.
 """
 
-class RuntimeGroup:
+from abc import ABC
+from typing import Mapping
 
+class _RuntimeLabelledConcepts(ABC):
+    """
+    Thin shared base for runtime objects that expose a label -> concept_id mapping.
+    """
+
+    _by_label: Mapping[str, int]
+    _name: str
+
+    kind_label: str = "Concepts"   # overridden in subclasses
+    kind_tag: str = "RuntimeConcepts"
+
+    @property
+    def labels(self) -> list[str]:
+        return sorted(self._by_label.keys())
+
+    @property
+    def ids(self) -> set[int]:
+        return set(self._by_label.values())
+
+    def mapper(self) -> dict[str, int]:
+        return dict(self._by_label)
+
+    def __getattr__(self, label: str) -> int:
+        if label.startswith("_"):
+            raise AttributeError(label)
+        return self._by_label[label]
+
+    def __repr__(self) -> str:
+        labels = ", ".join(self.labels)
+        return f"{self.kind_tag}({self._name}: [{labels}])"
+
+    def _repr_html_(self) -> str:
+        rows = [tr([label, cid]) for label, cid in sorted(self._by_label.items())]
+        return Html(
+            f"<h4>{h(self.kind_label)}: {h(self._name)}</h4>"
+            + table(rows, header=["Label", "Concept ID"])
+        ).raw
+
+class RuntimeGroup(_RuntimeLabelledConcepts):
     """
     Runtime wrapper around an ``OmopGroup``.
 
@@ -52,8 +92,13 @@ class RuntimeGroup:
         1634376
 
     """
+
+    kind_label = "Group"
+    kind_tag = "RuntimeGroup"
+
     def __init__(self, group: OmopGroup):
         self._group = group
+        self._name = group.name or '[group]'
         self._by_label = {
             c.label: c.concept_id
             for c in (group.parent_concepts or [])
@@ -75,37 +120,13 @@ class RuntimeGroup:
             )
         return next(iter(self._by_label.values()))
     
-
     def __int__(self) -> int:
         """
         Allow int(runtime.group) for singleton groups.
         """
         return self.value
-    
-    def __getattr__(self, label: str) -> int:
-        if label.startswith("_"):
-            raise AttributeError(label)
-        return self._by_label[label]
 
-    def __repr__(self) -> str:
-        labels = ", ".join(sorted(self._by_label.keys()))
-        return f"RuntimeGroup({self._group.name}: [{labels}])"
-
-    def _repr_html_(self) -> str:
-        rows = [
-            tr([label, cid])
-            for label, cid in sorted(self._by_label.items())
-        ]
-        return Html(
-            f"<h4>Group: {h(self._group.name)}</h4>"
-            + table(rows, header=["Label", "Concept ID"])
-        ).raw
-
-    def __dir__(self):
-        return sorted(set(super().__dir__()) | set(self._by_label.keys()))
-
-class RuntimeEnum:
-
+class RuntimeEnum(_RuntimeLabelledConcepts):
 
     """
     Runtime wrapper around an ``OmopEnum``.
@@ -125,40 +146,30 @@ class RuntimeEnum:
 
     """
 
+    kind_label = "Enum"
+    kind_tag = "RuntimeEnum"
+
     def __init__(self, enum: OmopEnum):
         self._enum = enum
-        self._by_label = {m.label: m.concept_id for m in enum.enum_members if m.concept_id and m.label}
+        self._name = enum.name or '[enum]'
+        self._by_label = {
+            m.label: m.concept_id
+            for m in enum.enum_members
+            if m.concept_id and m.label
+        }
+        
+
+class RuntimeConcept:
+    def __init__(self, concept: OmopConcept):
+        self._concept = concept
 
     @property
-    def labels(self) -> list[str]:
-        return sorted(self._by_label.keys())
+    def value(self) -> int | None:
+        return self._concept.concept_id
 
     @property
-    def ids(self) -> list[int]:
-        return sorted(self._by_label.values())
-
-    def __getattr__(self, label: str) -> int:
-        if label.startswith('_'):
-            raise AttributeError(label)
-        return self._by_label[label]
-    
-    def __repr__(self) -> str:
-        labels = ", ".join(sorted(self.labels))
-        return f"RuntimeEnum({self._enum.name}: [{labels}])"
-
-    def _repr_html_(self) -> str:
-        rows = [
-            tr([label, cid])
-            for label, cid in sorted(self._by_label.items())
-        ]
-        return Html(
-            f"<h4>Enum: {h(self._enum.name)}</h4>"
-            + table(rows, header=["Label", "Concept ID"])
-        ).raw
-    
-    def __dir__(self):
-        return sorted(set(super().__dir__()) | set(self.labels))
-
+    def values(self) -> set[int]:
+        return {self.value if self.value else 0}
 
 class RuntimeSemanticUnit:
 
@@ -192,6 +203,21 @@ class RuntimeSemanticUnit:
         self.groups = {g.name: RuntimeGroup(g) for g in (unit.named_groups or []) if g and g.name}        
         self.concepts = {c.name: c for c in (unit.named_concepts or []) if c and c.name}
 
+    @property
+    def ids(self) -> set[int]:
+        vals: set[int] = set()
+
+        for enum in self.enums.values():
+            vals |= enum.ids
+
+        for group in self.groups.values():
+            vals |= group.ids
+
+        for concept in self.concepts.values():
+            if concept and concept.concept_id:
+                vals.add(concept.concept_id)
+
+        return vals
 
     def __getattr__(self, name: str):
         if name in self.enums:
@@ -271,6 +297,14 @@ class RuntimeValueSet:
 
     name: str
     members: dict[str, RuntimeSemanticUnit]
+
+
+    @property
+    def ids(self) -> set[int]:
+        vals: set[int] = set()
+        for vs in self.members.values():
+            vals |= vs.ids
+        return vals
 
     def __getattr__(self, name: str) -> RuntimeSemanticUnit:
         try:

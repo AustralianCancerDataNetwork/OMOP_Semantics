@@ -18,3 +18,8 @@
 
 # 0.1.6
 - added condition concepts
+- added demographics concepts
+
+# 0.1.7
+- subclassed runtime group/enums
+- semantic unknown handlers

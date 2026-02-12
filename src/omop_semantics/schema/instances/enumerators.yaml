@@ -72,6 +72,29 @@ named_enumerators:
         label: episode
       - concept_id: 1147304
         label: observation
+  - name: unknowns
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4129922
+        label: generic
+      - concept_id: 4214687
+        label: gender
+      - concept_id: 44790729
+        label: condition
+      - concept_id: 36402660
+        label: cancer
+      - concept_id: 4264626
+        label: grade
+      - concept_id: 36768646
+        label: stage
+      - concept_id: 1634449
+        label: stage_edition
+      - concept_id: 40482029
+        label: cob
+      - concept_id: 4090378
+        label: drug_trial
+      - concept_id: 4207655
+        label: therapeutic_regimen
   - name: treatment_episode_types
     class_uri: OmopEnum
     enum_members:
