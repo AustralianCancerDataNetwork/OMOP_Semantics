@@ -14,8 +14,8 @@ enumerators = yaml_loader.load(
     target_class=CDMSemanticUnits,
 )
 
-idx = index_semantic_units(enumerators)
+idx = index_semantic_units(enumerators) # type: ignore
 value_sets = yaml_loader.load_as_dict(str(INSTANCE_DIR / 'valuesets.yaml'))
-value_set_objects = interpolate_valuesets(value_sets, idx)
+value_set_objects = interpolate_valuesets(value_sets, idx) # type: ignore
 runtime = compile_valuesets(value_set_objects)
 

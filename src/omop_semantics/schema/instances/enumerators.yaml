@@ -142,6 +142,8 @@ named_enumerators:
   - name: episode_types
     class_uri: OmopEnum
     enum_members:
+      - concept_id: 45754907
+        label: derived_value
       - concept_id: 32544
         label: ehr_defined
       - concept_id: 32545

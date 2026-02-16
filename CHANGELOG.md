@@ -23,3 +23,6 @@
 # 0.1.7
 - subclassed runtime group/enums
 - semantic unknown handlers
+
+# 0.1.8
+- unknown concept handlers specified (thin at the moment)
