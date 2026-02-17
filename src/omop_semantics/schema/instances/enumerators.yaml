@@ -72,7 +72,7 @@ named_enumerators:
         label: episode
       - concept_id: 1147304
         label: observation
-  - name: sact_fields
+  - name: sact_concepts
     class_uri: OmopEnum
     enum_members:
       - concept_id: 4162374
@@ -146,7 +146,7 @@ named_enumerators:
     enum_members:
       - concept_id: 4139794
         label: tumor_size
-  - name: episode_types
+  - name: source_types
     class_uri: OmopEnum
     enum_members:
       - concept_id: 45754907
