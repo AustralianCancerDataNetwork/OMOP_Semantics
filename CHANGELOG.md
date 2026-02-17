@@ -26,3 +26,6 @@
 
 # 0.1.8
 - unknown concept handlers specified (thin at the moment)
+
+# 0.1.9
+- moved some enumerator definitions around

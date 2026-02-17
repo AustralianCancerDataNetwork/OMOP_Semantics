@@ -72,6 +72,13 @@ named_enumerators:
         label: episode
       - concept_id: 1147304
         label: observation
+  - name: sact_fields
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4162374
+        label: drug_dose_observation
+      - concept_id: 4090378
+        label: drug_trial
   - name: unknowns
     class_uri: OmopEnum
     enum_members:
@@ -91,10 +98,10 @@ named_enumerators:
         label: stage_edition
       - concept_id: 40482029
         label: cob
-      - concept_id: 4090378
-        label: drug_trial
       - concept_id: 4207655
         label: therapeutic_regimen
+      - concept_id: 1379408
+        label: unknown_drug_or_placebo
   - name: treatment_episode_types
     class_uri: OmopEnum
     enum_members:
@@ -162,6 +169,8 @@ named_enumerators:
         label: rt_care_plan
       - concept_id: 32840
         label: ehr_problem_list
+      - concept_id: 4162374
+        label: ehr_drug_admin
   - name: document_type
     class_uri: OmopEnum
     enum_members:

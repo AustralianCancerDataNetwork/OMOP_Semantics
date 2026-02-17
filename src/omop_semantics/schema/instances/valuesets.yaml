@@ -7,24 +7,22 @@ valuesets:
     members:
       - modifier_fields
       - modifier_tables
-  - name: episodes
+  - name: types
     members: 
       - treatment_episode_types
       - disease_episode_types
-      - episode_types
+      - source_types
   - name: treatment_modifiers
     members: 
       - treatment_intent
       - treatment_modality
       - treatment_modifier_values
-  - name: condition_concepts
-    members:
-      - condition_status
   - name: condition_modifiers
     members: 
       - condition_modifier_values
       - tumor_grade
       - numeric_condition_modifiers
+      - condition_status
   - name: nlp
     members:
       - document_type
@@ -47,6 +45,10 @@ valuesets:
       - m_stage_concepts
       - group_stage_concepts
       - stage_edition
-  - name: demography
+  - name: observations
     members:
       - demography_concepts
+      - sact_concepts
+  - name: unknowns
+    members:
+      - unknowns
