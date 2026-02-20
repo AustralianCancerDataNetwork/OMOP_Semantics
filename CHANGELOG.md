@@ -29,3 +29,6 @@
 
 # 0.1.9
 - moved some enumerator definitions around
+
+# 0.1.10
+- visit modalities

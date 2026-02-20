@@ -45,6 +45,9 @@ valuesets:
       - m_stage_concepts
       - group_stage_concepts
       - stage_edition
+  - name: visits
+    members:
+      - visit_modalities
   - name: observations
     members:
       - demography_concepts

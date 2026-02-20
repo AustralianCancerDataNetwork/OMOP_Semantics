@@ -8,6 +8,17 @@ named_enumerators:
         label: genomic_negative
       - concept_id: 4172976
         label: genomic_equivocal
+  - name: visit_modalities
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 9202
+        label: outpatient
+      - concept_id: 9201
+        label: inpatient
+      - concept_id: 5083
+        label: telehealth
+      - concept_id: 581476
+        label: home_visit
   - name: demography_concepts
     class_uri: OmopEnum
     enum_members:
