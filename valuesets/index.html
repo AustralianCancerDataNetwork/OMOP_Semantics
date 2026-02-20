@@ -1,0 +1,1596 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Schema-backed registry for defining and managing semantic OMOP conventions">
+      
+      
+      
+        <link rel="canonical" href="https://AustralianCancerDataNetwork.github.io/OMOP_Semantics/valuesets/">
+      
+      
+        <link rel="prev" href="../registry/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>Value Sets - OMOP Semantics</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#value-sets-runtime" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OMOP Semantics" class="md-header__button md-logo" aria-label="OMOP Semantics" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OMOP Semantics
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Value Sets
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/AustralianCancerDataNetwork/OMOP_Semantics" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OMOP_Semantics
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OMOP Semantics" class="md-nav__button md-logo" aria-label="OMOP Semantics" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OMOP Semantics
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/AustralianCancerDataNetwork/OMOP_Semantics" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OMOP_Semantics
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Value Sets
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Value Sets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#runtimevaluesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeValueSets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimevalueset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeValueSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimesemanticunit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeSemanticUnit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeSemanticUnit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeSemanticUnit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimeenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeEnum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeEnum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeEnum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimegroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeGroup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeGroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeGroup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeGroup.value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeGroup.__int__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __int__
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compile_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.compile_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compile_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpolate_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        interpolate_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.interpolate_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        interpolate_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index_semantic_units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        index_semantic_units
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.index_semantic_units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        index_semantic_units
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        default_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#runtimevaluesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeValueSets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimevalueset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeValueSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeValueSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimesemanticunit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeSemanticUnit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeSemanticUnit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeSemanticUnit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimeenum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeEnum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeEnum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeEnum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimegroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeGroup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeGroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RuntimeGroup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeGroup.value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        value
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.RuntimeGroup.__int__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __int__
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compile_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.compile_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compile_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpolate_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        interpolate_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.interpolate_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        interpolate_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#index_semantic_units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        index_semantic_units
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#omop_semantics.runtime.value_sets.index_semantic_units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        index_semantic_units
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default_valuesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        default_valuesets
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="value-sets-runtime">Value Sets Runtime<a class="headerlink" href="#value-sets-runtime" title="Permanent link">&para;</a></h1>
+<h2 id="runtimevaluesets">RuntimeValueSets<a class="headerlink" href="#runtimevaluesets" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="omop_semantics.runtime.value_sets.RuntimeValueSets"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Top-level runtime namespace for all compiled value sets.</p>
+<p>This is the primary entry point for interactive access to the semantic
+registry:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; runtime.genomic
+&gt;&gt;&gt; runtime.staging
+&gt;&gt;&gt; runtime.nlp
+</code></pre></div>
+<p>Each attribute corresponds to a named <code>RuntimeValueSet</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="runtimevalueset">RuntimeValueSet<a class="headerlink" href="#runtimevalueset" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="omop_semantics.runtime.value_sets.RuntimeValueSet"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Runtime representation of a named value set.</p>
+<p>A value set groups multiple semantic units under a single namespace or 
+conceptual module - no added functionality just for ease of access and use</p>
+<p>(e.g. <code>genomic</code>, <code>staging</code>, <code>modifiers</code>).</p>
+<p>Semantic units can be accessed via attribute lookup:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; runtime.genomic.genomic_value_group
+RuntimeSemanticUnit(...)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="runtimesemanticunit">RuntimeSemanticUnit<a class="headerlink" href="#runtimesemanticunit" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="omop_semantics.runtime.value_sets.RuntimeSemanticUnit"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Runtime container for a single semantic unit.</p>
+<p>A semantic unit may contain any combination of:</p>
+<ul>
+<li>Named enums (<code>RuntimeEnum</code>)</li>
+<li>Named groups (<code>RuntimeGroup</code>)</li>
+<li>Named concepts (raw <code>OmopConcept</code>)</li>
+</ul>
+<p>This class exposes:</p>
+<ul>
+<li>Direct access to named enums/groups/concepts via attributes</li>
+<li>Direct access to enum/group labels as attributes (flattened lookup)</li>
+<li>Rich textual and HTML representations for introspection</li>
+</ul>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; runtime.genomic.genomic_value_group.genomic_positive
+9191
+
+&gt;&gt;&gt; runtime.staging.t_stage_concepts.t4
+1634654
+</code></pre></div>
+</details>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="runtimeenum">RuntimeEnum<a class="headerlink" href="#runtimeenum" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="omop_semantics.runtime.value_sets.RuntimeEnum"></a>
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="omop_semantics.runtime.value_sets._RuntimeLabelledConcepts">_RuntimeLabelledConcepts</span></code></p>
+
+
+
+        <p>Runtime wrapper around an <code>OmopEnum</code>.</p>
+<p>Exposes enum members as a label to concept_id mapping, accessible via
+attribute access:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; runtime.genomic.genomic_value_group.genomic_positive
+9191
+</code></pre></div>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="omop_semantics.runtime.value_sets.RuntimeEnum.labels">labels</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sorted list of enum labels.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="omop_semantics.runtime.value_sets.RuntimeEnum.ids">ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sorted list of concept IDs in the enum.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="runtimegroup">RuntimeGroup<a class="headerlink" href="#runtimegroup" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="omop_semantics.runtime.value_sets.RuntimeGroup"></a>
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="omop_semantics.runtime.value_sets._RuntimeLabelledConcepts">_RuntimeLabelledConcepts</span></code></p>
+
+
+
+        <p>Runtime wrapper around an <code>OmopGroup</code>.</p>
+<p>Exposes the group's parent concepts as an attribute-accessible namespace,
+mapping concept labels to OMOP concept IDs. This allows interactive access
+such as:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; runtime.staging.t_stage_concepts.t3
+1634376
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="omop_semantics.runtime.value_sets.RuntimeGroup.value" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">value</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#omop_semantics.runtime.value_sets.RuntimeGroup.value" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">value</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Return the sole concept_id if this group has exactly one parent.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="omop_semantics.runtime.value_sets.RuntimeGroup.__int__" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">__int__</span>
+
+
+<a href="#omop_semantics.runtime.value_sets.RuntimeGroup.__int__" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">__int__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Allow int(runtime.group) for singleton groups.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="compile_valuesets">compile_valuesets<a class="headerlink" href="#compile_valuesets" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<a id="omop_semantics.runtime.value_sets.compile_valuesets"></a>
+    <div class="doc doc-contents first">
+
+        <p>Compile declarative CDM value set definitions into runtime objects.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>defs</code>
+            </td>
+            <td>
+                  <code><span title="omop_semantics.schema.generated_models.omop_named_sets.CDMValueSets">CDMValueSets</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Parsed value set definitions after interpolation.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="omop_semantics.runtime.value_sets.RuntimeValueSets" href="#omop_semantics.runtime.value_sets.RuntimeValueSets">RuntimeValueSets</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Runtime-accessible registry of all value sets and semantic units.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="note" open>
+  <summary>Notes</summary>
+  <p>This step materialises the interactive runtime namespace used in notebooks
+and rule logic. It is intentionally pure and read-only.</p>
+</details>
+
+    </div>
+
+</div><h2 id="interpolate_valuesets">interpolate_valuesets<a class="headerlink" href="#interpolate_valuesets" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<a id="omop_semantics.runtime.value_sets.interpolate_valuesets"></a>
+    <div class="doc doc-contents first">
+
+        <p>Interpolate raw value set definitions by resolving string references.</p>
+<p>This replaces string references in <code>valuesets.yaml</code> with concrete
+<code>CDMSemanticUnits</code> instances wrapping the corresponding OMOP semantic
+objects.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>raw</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Raw parsed YAML dictionary from <code>valuesets.yaml</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>semantic_index</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="omop_semantics.schema.generated_models.omop_named_sets.OmopSemanticObject">OmopSemanticObject</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Lookup table mapping semantic unit names to OMOP semantic objects.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="omop_semantics.schema.generated_models.omop_named_sets.CDMValueSets">CDMValueSets</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Fully resolved value set definitions suitable for compilation into
+runtime objects.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="KeyError">KeyError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a referenced semantic unit name does not exist.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="TypeError">TypeError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If an unsupported semantic object type is encountered.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h2 id="index_semantic_units">index_semantic_units<a class="headerlink" href="#index_semantic_units" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<a id="omop_semantics.runtime.value_sets.index_semantic_units"></a>
+    <div class="doc doc-contents first">
+
+        <p>Build a name → semantic object index from a <code>CDMSemanticUnits</code> container.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>units</code>
+            </td>
+            <td>
+                  <code><span title="omop_semantics.schema.generated_models.omop_named_sets.CDMSemanticUnits">CDMSemanticUnits</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Declarative semantic unit registry.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="omop_semantics.schema.generated_models.omop_named_sets.OmopSemanticObject">OmopSemanticObject</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Mapping from semantic unit name to underlying OMOP semantic object
+(enum, group, or concept).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>This index is used during interpolation of value set definitions.</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div><h2 id="default_valuesets">default_valuesets<a class="headerlink" href="#default_valuesets" title="Permanent link">&para;</a></h2>
+<h1 id="default-value-sets">Default Value Sets<a class="headerlink" href="#default-value-sets" title="Permanent link">&para;</a></h1>
+<p>This module provides a reference implementation for loading and compiling the default OMOP semantic value sets shipped with the library.</p>
+<p>It demonstrates the full runtime loading pipeline:</p>
+<ol>
+<li>Loading semantic unit definitions (enums, groups, concepts) from YAML.</li>
+<li>Indexing semantic units by name.</li>
+<li>Loading high-level value set definitions.</li>
+<li>Interpolating string references into concrete semantic objects.</li>
+<li>Compiling the result into runtime-friendly accessors.</li>
+</ol>
+<p>This file is intended primarily as:
+- a working exemplar of the loading pipeline, and<br />
+- a convenient import point for default registry semantics.</p>
+<hr />
+<h2 id="loading-pipeline">Loading Pipeline<a class="headerlink" href="#loading-pipeline" title="Permanent link">&para;</a></h2>
+<p>The default value sets are constructed using the following steps:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">linkml_runtime.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">yaml_loader</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">omop_semantics.schema.generated_models.omop_named_sets</span><span class="w"> </span><span class="kn">import</span> <span class="n">CDMSemanticUnits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">omop_semantics.runtime.value_sets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">compile_valuesets</span><span class="p">,</span>
+    <span class="n">index_semantic_units</span><span class="p">,</span>
+    <span class="n">interpolate_valuesets</span><span class="p">,</span>
+    <span class="n">RuntimeValueSets</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">omop_semantics</span><span class="w"> </span><span class="kn">import</span> <span class="n">SCHEMA_DIR</span><span class="p">,</span> <span class="n">INSTANCE_DIR</span>
+
+<span class="n">schema_path</span> <span class="o">=</span> <span class="n">SCHEMA_DIR</span> <span class="o">/</span> <span class="s2">&quot;core&quot;</span> <span class="o">/</span> <span class="s2">&quot;omop_named_sets.yaml&quot;</span>
+<span class="n">enumerator_instances</span> <span class="o">=</span> <span class="n">INSTANCE_DIR</span> <span class="o">/</span> <span class="s2">&quot;enumerators.yaml&quot;</span>
+<span class="n">valueset_definitions</span> <span class="o">=</span> <span class="n">INSTANCE_DIR</span> <span class="o">/</span> <span class="s2">&quot;valuesets.yaml&quot;</span>
+
+<span class="c1"># Load semantic units (enums, groups, concepts)</span>
+<span class="n">enumerators</span> <span class="o">=</span> <span class="n">yaml_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">enumerator_instances</span><span class="p">),</span>
+    <span class="n">target_class</span><span class="o">=</span><span class="n">CDMSemanticUnits</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Build name → semantic object index</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">index_semantic_units</span><span class="p">(</span><span class="n">enumerators</span><span class="p">)</span>
+
+<span class="c1"># Load valueset definitions (string references)</span>
+<span class="n">value_sets</span> <span class="o">=</span> <span class="n">yaml_loader</span><span class="o">.</span><span class="n">load_as_dict</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">valueset_definitions</span><span class="p">))</span>
+
+<span class="c1"># Interpolate string references into concrete semantic units</span>
+<span class="n">value_set_objects</span> <span class="o">=</span> <span class="n">interpolate_valuesets</span><span class="p">(</span><span class="n">value_sets</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+
+<span class="c1"># Compile to runtime objects</span>
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">compile_valuesets</span><span class="p">(</span><span class="n">value_set_objects</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="intended-usage">Intended Usage<a class="headerlink" href="#intended-usage" title="Permanent link">&para;</a></h3>
+<p>This module is designed to be imported directly by downstream code (etl, interactive analytics, auto-documentation and/or data validation)</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">omop_semantics.runtime.default_valuesets</span><span class="w"> </span><span class="kn">import</span> <span class="n">runtime</span>
+
+<span class="n">concept_id</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">genomic</span><span class="o">.</span><span class="n">genomic_value_group</span><span class="o">.</span><span class="n">genomic_positive</span>
+</code></pre></div>
+<p>It can also be used as a template for loading:</p>
+<ul>
+<li>site-specific value sets,</li>
+<li>project-specific semantic registries, or</li>
+<li>dynamically constructed semantic bundles.</li>
+</ul>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>This loader pipeline is intentionally explicit and decomposed for clarity.</li>
+<li>The API surface may be wrapped in higher-level convenience functions in future versions.</li>
+<li>The current design prioritises transparency and inspectability over terseness.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../js/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>
