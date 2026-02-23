@@ -41,6 +41,7 @@ valuesets:
       - lab_measurements
       - smoking_numeric
       - proms_numeric
+      - performance_status_measurements
   - name: staging
     members:
       - t_stage_concepts
