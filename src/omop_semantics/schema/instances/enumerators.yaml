@@ -240,7 +240,7 @@ named_enumerators:
         label: radiation_therapist
       - concept_id: 4010577
         label: medical_doctor
-  - name: weight_concepts
+  - name: body_size_measurements
     class_uri: OmopEnum
     enum_members:
       - concept_id: 4099154
@@ -251,7 +251,31 @@ named_enumerators:
         label: bsa
       - concept_id: 4086522
         label: weight_change  
-  - name: weight_units
+  - name: performance_status_measurements
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 36305384
+        label: ecog_performance_status
+  - name: lab_measurements
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4275203
+        label: creatinine_clearance
+      - concept_id: 37208635
+        label: egfr
+      - concept_id: 3024653
+        label: fev1
+  - name: smoking_numeric
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 4151768
+        label: pyh
+  - name: proms_numeric
+    class_uri: OmopEnum
+    enum_members:
+      - concept_id: 601349
+        label: distress_thermometer
+  - name: body_size_units
     class_uri: OmopEnum
     enum_members:
       - concept_id: 8739

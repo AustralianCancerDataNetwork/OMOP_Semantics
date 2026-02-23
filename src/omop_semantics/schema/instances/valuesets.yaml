@@ -34,10 +34,13 @@ valuesets:
       - encounter_provider_specialty
       - cancer_procedure_types
       - procedures_by_location
-  - name: height_weight
+  - name: measurements_numeric
     members:
-      - weight_concepts
-      - weight_units
+      - body_size_units
+      - body_size_measurements
+      - lab_measurements
+      - smoking_numeric
+      - proms_numeric
   - name: staging
     members:
       - t_stage_concepts

@@ -32,3 +32,6 @@
 
 # 0.1.10
 - visit modalities
+
+# 0.1.11
+- lab measurements
