@@ -74,6 +74,8 @@ named_enumerators:
         label: procedure_occurrence_id
       - concept_id: 756290
         label: episode_id
+      - concept_id: 1147138
+        label: measurement_id
   - name: modifier_tables
     class_uri: OmopEnum
     enum_members:
