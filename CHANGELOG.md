@@ -41,3 +41,6 @@
 
 # 0.1.13
 - missed measurement_id
+
+# 0.1.14
+- dependabot alerts
