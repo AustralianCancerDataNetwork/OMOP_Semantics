@@ -1235,7 +1235,7 @@ wheels = [
 
 [[package]]
 name = "omop-semantics"
-version = "0.1.13"
+version = "0.1.15"
 source = { editable = "." }
 dependencies = [
     { name = "ipykernel" },
@@ -1287,7 +1287,7 @@ requires-dist = [
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.4" },
     { name = "tornado", marker = "extra == 'dev'", specifier = ">=6.5.5" },
     { name = "typing-extensions", specifier = ">=4.15.0" },
-    { name = "urllib3", specifier = ">=2.6.3" },
+    { name = "urllib3", specifier = ">=2.7.0" },
 ]
 provides-extras = ["dev", "docs"]
 

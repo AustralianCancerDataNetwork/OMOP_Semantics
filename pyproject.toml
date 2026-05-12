@@ -1,6 +1,6 @@
 [project]
 name = "omop-semantics"
-version = "0.1.14"
+version = "0.1.15"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -14,7 +14,7 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "ruamel-yaml>=0.18.17",
     "typing-extensions>=4.15.0",
-    "urllib3>=2.6.3"
+    "urllib3>=2.7.0"
 ]
 
 [project.scripts]

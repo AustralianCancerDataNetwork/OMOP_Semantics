@@ -44,3 +44,6 @@
 
 # 0.1.14
 - dependabot alerts
+
+# 0.1.15
+- dependabot alerts
